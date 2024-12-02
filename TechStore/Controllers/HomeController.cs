@@ -14,7 +14,7 @@ namespace TechStore.Controllers
         }
 
         public IActionResult Index()
-        {
+        { 
             return View();
         }
 
