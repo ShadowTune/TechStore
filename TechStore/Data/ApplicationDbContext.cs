@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TechStore.Models;
 
 namespace TechStore.Data
 {
@@ -8,5 +9,6 @@ namespace TechStore.Data
 		{
 			
 		}
+		public DbSet<Category> Categories { get; set; }
 	}
 }
