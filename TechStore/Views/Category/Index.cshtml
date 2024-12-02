@@ -1,13 +1,25 @@
 ﻿@model List<Category>
 
+	<div class="container">
+		<div class="row py-4">
+			<div class="col-6">
+				Brand List
+			</div>
+			<div class="col-6 text-end">
+				<a asp-controller ="Category" asp-action="Add" class="btn btn-primary">
+				<i class="bi bi-plus-circle"></i> Add Brand
+				</a>
+			</div>
+		</div>
+	</div>
 <table class="table table-bordered table-striped">
 	<thead>
 		<tr>
 			<th>
-				Category Name
+				Brand Name
 			</th>
 			<th>
-				Display Order
+				Stock Orders
 			</th>
 		</tr>
 	</thead>

@@ -16,5 +16,18 @@ namespace TechStore.Controllers
 			List<Category> objCategoryList = _db.Categories.ToList();
 			return View(objCategoryList);
 		}
+		public IActionResult Add()
+		{
+			return View();
+			// not required to pass an object
+		}
+		[HttpPost]
+		public IActionResult Add(Category category)
+		{
+			_db.Categories.Add(category);
+			_db.SaveChanges();
+			return RedirectToAction("Index");
+			// not required to pass an object
+		}
 	}
 }
