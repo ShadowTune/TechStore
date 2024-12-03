@@ -1,25 +1,26 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TechStore.DataAccess.Data;
+using TechStore.DataAccess.Repository.IRepository;
 using TechStore.Models;
 
 namespace TechStore.Controllers
 {
 	public class CategoryController : Controller
 	{
-		private readonly ApplicationDbContext _db;
-		public CategoryController(ApplicationDbContext db)
+		private readonly ICategoryRepository _categoryRepo;
+		public CategoryController(ICategoryRepository db)
 		{
-			_db = db;
+			_categoryRepo = db;
 		}
 		public IActionResult Index()
 		{
-			List<Category> objCategoryList = _db.Categories.ToList();
+			List<Category> objCategoryList = _categoryRepo.GetAll().ToList();
 			return View(objCategoryList);
 		}
 		public IActionResult Add(int? id)
 		{
-			Category category = _db.Categories.FirstOrDefault(c => c.Id == id);
-			return View(category);
+			// Category category = _db.Categories.FirstOrDefault(c => c.Id == id);
+			return View();
 			// not required to pass an object
 		}
 		[HttpPost]
@@ -31,8 +32,8 @@ namespace TechStore.Controllers
 			}
 			if (ModelState.IsValid)
 			{
-				_db.Categories.Add(category);
-				_db.SaveChanges();
+				_categoryRepo.Add(category);
+				_categoryRepo.Save();
 				TempData["success"] = "Stock Order Added Successfully";
 				return RedirectToAction("Index");
 			}
@@ -46,7 +47,7 @@ namespace TechStore.Controllers
 			{
 				return NotFound();
 			}
-			Category category = _db.Categories.FirstOrDefault(c => c.Id == id);
+			Category category = _categoryRepo.Get(c => c.Id == id);
 			return View(category);
 			// not required to pass an object
 		}
@@ -63,8 +64,8 @@ namespace TechStore.Controllers
 			}
 			if (ModelState.IsValid)
 			{
-				_db.Categories.Update(category);
-				_db.SaveChanges();
+				_categoryRepo.Update(category);
+				_categoryRepo.Save();
 				TempData["success"] = "Stock Order Updated Successfully";
 				return RedirectToAction("Index");
 			}
@@ -78,14 +79,14 @@ namespace TechStore.Controllers
 			{
 				return NotFound();
 			}
-			Category category = _db.Categories.Find(id);
+			Category category = _categoryRepo.Get(c => c.Id == id);
 			return View(category);
 			// not required to pass an object
 		}
 		[HttpPost, ActionName("Delete")]
 		public IActionResult DeletePost(int? id)
 		{
-			Category category = _db.Categories.Find(id);
+			Category category = _categoryRepo.Get(c => c.Id == id);
 			if (category == null)
 			{
 				return NotFound();
@@ -93,8 +94,8 @@ namespace TechStore.Controllers
 			// _db.Categories.Remove(category);
 			if (ModelState.IsValid)
 			{
-				_db.Categories.Remove(category);
-				_db.SaveChanges();
+				_categoryRepo.Remove(category);
+				_categoryRepo.Save();
 				TempData["success"] = "Stock Order Deleted Successfully";
 			}
 			return RedirectToAction("Index");
