@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TechStore.Data;
+using TechStore.DataAccess.Data;
 using TechStore.Models;
 
 namespace TechStore.Controllers

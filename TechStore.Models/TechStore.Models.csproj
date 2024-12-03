@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TechStore\TechStore.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Models\" />
   </ItemGroup>
 
