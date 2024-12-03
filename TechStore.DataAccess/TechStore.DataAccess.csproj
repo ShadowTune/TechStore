@@ -18,7 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TechStore.Models\TechStore.Models.csproj" />
-    <ProjectReference Include="..\TechStore\TechStore.csproj" />
+    <ProjectReference Include="..\TechStore.Utility\TechStore.Utility.csproj" />
   </ItemGroup>
 
 </Project>
