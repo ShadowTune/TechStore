@@ -7,14 +7,14 @@ namespace TechStore.Controllers
 {
 	public class CategoryController : Controller
 	{
-		private readonly ICategoryRepository _categoryRepo;
-		public CategoryController(ICategoryRepository db)
+		private readonly IUnitOfWork _unitofwork;
+		public CategoryController(IUnitOfWork unitofwork)
 		{
-			_categoryRepo = db;
+			_unitofwork = unitofwork;
 		}
 		public IActionResult Index()
 		{
-			List<Category> objCategoryList = _categoryRepo.GetAll().ToList();
+			List<Category> objCategoryList = _unitofwork.Category.GetAll().ToList();
 			return View(objCategoryList);
 		}
 		public IActionResult Add(int? id)
@@ -32,8 +32,8 @@ namespace TechStore.Controllers
 			}
 			if (ModelState.IsValid)
 			{
-				_categoryRepo.Add(category);
-				_categoryRepo.Save();
+				_unitofwork.Category.Add(category);
+				_unitofwork.Category.Save();
 				TempData["success"] = "Stock Order Added Successfully";
 				return RedirectToAction("Index");
 			}
@@ -47,7 +47,7 @@ namespace TechStore.Controllers
 			{
 				return NotFound();
 			}
-			Category category = _categoryRepo.Get(c => c.Id == id);
+			Category category = _unitofwork.Category.Get(c => c.Id == id);
 			return View(category);
 			// not required to pass an object
 		}
@@ -64,8 +64,8 @@ namespace TechStore.Controllers
 			}
 			if (ModelState.IsValid)
 			{
-				_categoryRepo.Update(category);
-				_categoryRepo.Save();
+				_unitofwork.Category.Update(category);
+				_unitofwork.Category.Save();
 				TempData["success"] = "Stock Order Updated Successfully";
 				return RedirectToAction("Index");
 			}
@@ -79,14 +79,14 @@ namespace TechStore.Controllers
 			{
 				return NotFound();
 			}
-			Category category = _categoryRepo.Get(c => c.Id == id);
+			Category category = _unitofwork.Category.Get(c => c.Id == id);
 			return View(category);
 			// not required to pass an object
 		}
 		[HttpPost, ActionName("Delete")]
 		public IActionResult DeletePost(int? id)
 		{
-			Category category = _categoryRepo.Get(c => c.Id == id);
+			Category category = _unitofwork.Category.Get(c => c.Id == id);
 			if (category == null)
 			{
 				return NotFound();
@@ -94,8 +94,8 @@ namespace TechStore.Controllers
 			// _db.Categories.Remove(category);
 			if (ModelState.IsValid)
 			{
-				_categoryRepo.Remove(category);
-				_categoryRepo.Save();
+				_unitofwork.Category.Remove(category);
+				_unitofwork.Category.Save();
 				TempData["success"] = "Stock Order Deleted Successfully";
 			}
 			return RedirectToAction("Index");
