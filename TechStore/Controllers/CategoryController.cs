@@ -24,9 +24,13 @@ namespace TechStore.Controllers
 		[HttpPost]
 		public IActionResult Add(Category category)
 		{
-			_db.Categories.Add(category);
-			_db.SaveChanges();
-			return RedirectToAction("Index");
+			if (ModelState.IsValid)
+			{
+				_db.Categories.Add(category);
+				_db.SaveChanges(); 
+				return RedirectToAction("Index");
+			}
+			return View(category);
 			// not required to pass an object
 		}
 	}
