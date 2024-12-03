@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TechStore.Models;
 
 namespace TechStore.DataAccess.Repository.IRepository
 {
-	public interface IUnitOfWork
+	public interface IProductRepository : IRepository<Product>
 	{
-		ICategoryRepository Category { get; }
-		IProductRepository Product { get; }
-		void Save();
+		void Update(Product product);
 	}
 }
