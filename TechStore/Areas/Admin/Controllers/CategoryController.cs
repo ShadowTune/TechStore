@@ -3,8 +3,9 @@ using TechStore.DataAccess.Data;
 using TechStore.DataAccess.Repository.IRepository;
 using TechStore.Models;
 
-namespace TechStore.Controllers
+namespace TechStore.Areas.Admin.Controllers
 {
+	[Area("Admin")]
 	public class CategoryController : Controller
 	{
 		private readonly IUnitOfWork _unitofwork;
