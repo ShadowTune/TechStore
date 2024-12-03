@@ -18,10 +18,6 @@ namespace TechStore.Controllers
 		}
 		public IActionResult Add(int? id)
 		{
-			if (id == null || id == 0)
-			{
-				return NotFound();
-			}
 			Category category = _db.Categories.FirstOrDefault(c => c.Id == id);
 			return View(category);
 			// not required to pass an object
@@ -32,10 +28,6 @@ namespace TechStore.Controllers
 			if (category.Name == category.DisplayOrder.ToString())
 			{
 				ModelState.AddModelError("Name", "Name and Orders must be different");
-			}
-			if (category.Name.ToLower() == "test")
-			{
-				ModelState.AddModelError("Name", "Name is invalid");
 			}
 			if (ModelState.IsValid)
 			{
