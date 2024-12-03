@@ -32,7 +32,8 @@ namespace TechStore.Controllers
 			if (ModelState.IsValid)
 			{
 				_db.Categories.Add(category);
-				_db.SaveChanges(); 
+				_db.SaveChanges();
+				TempData["success"] = "Stock Order Added Successfully";
 				return RedirectToAction("Index");
 			}
 			return View(category);
@@ -64,6 +65,7 @@ namespace TechStore.Controllers
 			{
 				_db.Categories.Update(category);
 				_db.SaveChanges();
+				TempData["success"] = "Stock Order Updated Successfully";
 				return RedirectToAction("Index");
 			}
 			return View(category);
@@ -93,6 +95,7 @@ namespace TechStore.Controllers
 			{
 				_db.Categories.Remove(category);
 				_db.SaveChanges();
+				TempData["success"] = "Stock Order Deleted Successfully";
 			}
 			return RedirectToAction("Index");
 			// return View(category);
