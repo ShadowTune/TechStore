@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TechStore.DataAccess.Data;
 
@@ -10,9 +11,11 @@ using TechStore.DataAccess.Data;
 namespace TechStore.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241204051438_AddImageLinkToDb")]
+    partial class AddImageLinkToDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -90,7 +93,7 @@ namespace TechStore.DataAccess.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
-                    b.Property<int>("BrandID")
+                    b.Property<int>("CategoryID")
                         .HasColumnType("int");
 
                     b.Property<double>("DiscountPrice")
@@ -116,7 +119,7 @@ namespace TechStore.DataAccess.Migrations
 
                     b.HasKey("ProductId");
 
-                    b.HasIndex("BrandID");
+                    b.HasIndex("CategoryID");
 
                     b.ToTable("Products");
 
@@ -125,7 +128,7 @@ namespace TechStore.DataAccess.Migrations
                         {
                             ProductId = "MP2N6HJ1",
                             Brand = "Lenovo",
-                            BrandID = 1,
+                            CategoryID = 1,
                             DiscountPrice = 1059.99,
                             DisplayOrder = 30,
                             ImageLink = "",
@@ -137,7 +140,7 @@ namespace TechStore.DataAccess.Migrations
                         {
                             ProductId = "M62N6HJ1",
                             Brand = "Lenovo",
-                            BrandID = 1,
+                            CategoryID = 1,
                             DiscountPrice = 2059.9899999999998,
                             DisplayOrder = 20,
                             ImageLink = "",
@@ -149,7 +152,7 @@ namespace TechStore.DataAccess.Migrations
                         {
                             ProductId = "A72N6HJ2",
                             Brand = "Asus",
-                            BrandID = 2,
+                            CategoryID = 2,
                             DiscountPrice = 1259.99,
                             DisplayOrder = 25,
                             ImageLink = "",
@@ -161,7 +164,7 @@ namespace TechStore.DataAccess.Migrations
                         {
                             ProductId = "RP2N6HJ1",
                             Brand = "Asus",
-                            BrandID = 2,
+                            CategoryID = 2,
                             DiscountPrice = 2399.9899999999998,
                             DisplayOrder = 10,
                             ImageLink = "",
@@ -173,7 +176,7 @@ namespace TechStore.DataAccess.Migrations
                         {
                             ProductId = "GT2N6HJ1",
                             Brand = "MSI",
-                            BrandID = 5,
+                            CategoryID = 5,
                             DiscountPrice = 4959.9899999999998,
                             DisplayOrder = 10,
                             ImageLink = "",
@@ -185,7 +188,7 @@ namespace TechStore.DataAccess.Migrations
                         {
                             ProductId = "HP2N6HJ1",
                             Brand = "HP",
-                            BrandID = 6,
+                            CategoryID = 6,
                             DiscountPrice = 1159.99,
                             DisplayOrder = 20,
                             ImageLink = "",
@@ -197,7 +200,7 @@ namespace TechStore.DataAccess.Migrations
                         {
                             ProductId = "AC2N6HJ1",
                             Brand = "ACER",
-                            BrandID = 3,
+                            CategoryID = 3,
                             DiscountPrice = 1150.99,
                             DisplayOrder = 20,
                             ImageLink = "",
@@ -209,7 +212,7 @@ namespace TechStore.DataAccess.Migrations
                         {
                             ProductId = "DL2N6HJ1",
                             Brand = "DELL",
-                            BrandID = 4,
+                            CategoryID = 4,
                             DiscountPrice = 4100.9899999999998,
                             DisplayOrder = 5,
                             ImageLink = "",
@@ -223,7 +226,7 @@ namespace TechStore.DataAccess.Migrations
                 {
                     b.HasOne("TechStore.Models.Category", "category")
                         .WithMany()
-                        .HasForeignKey("BrandID")
+                        .HasForeignKey("CategoryID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

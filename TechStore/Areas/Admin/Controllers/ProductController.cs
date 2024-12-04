@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
 using TechStore.DataAccess.Data;
 using TechStore.DataAccess.Repository.IRepository;
 using TechStore.Models;
@@ -20,7 +22,22 @@ namespace TechStore.Areas.Admin.Controllers
 		}
 		public IActionResult Add(string? id)
 		{
+			IEnumerable<SelectListItem> CategoryList = _unitofwork.Category.GetAll().Select(u => new SelectListItem
+			{
+				Text = u.Name,
+				Value = u.Id.ToString()
+			});
+			// return View(objProductList);
 			// Product product = _db.Categories.FirstOrDefault(c => c.Id == id);
+			ViewBag.CategoryList = CategoryList;
+
+			IEnumerable<SelectListItem> SeriesList = _unitofwork.Product.GetAll().Select(u => new SelectListItem
+			{
+				Text = u.Series,
+				Value = u.BrandID.ToString()
+			});
+
+			ViewBag.SeriesList = SeriesList;
 			return View();
 			// not required to pass an object
 		}

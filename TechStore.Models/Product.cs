@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TechStore.Models
 {
@@ -34,5 +35,11 @@ namespace TechStore.Models
 		[DisplayName("Stock Orders")]
 		[Range(1, 100, ErrorMessage = "Order must be in between 1-100")]
 		public int DisplayOrder { get; set; }
+
+		public int BrandID { get; set; }
+		[ForeignKey("BrandID")]
+		public Category category { get; set; }
+
+		public string ImageLink { get; set; }
 	}
 }

@@ -16,12 +16,23 @@
 					<span asp-validation-for="ProductId" class="text-danger"></span>
 				</div>
 				<div class="form-floating py-2 col-12">
-					<input asp-for="Brand" class="form-control border-0 shadow" />
+					<select asp-for="Brand" asp-items="ViewBag.CategoryList" class="form-select border-0 shadow">
+						<option disabled selected>---Select Brand--- </option>
+					</select>
 					<label asp-for="Brand" class="ms-2"></label>
 					<span asp-validation-for="Brand" class="text-danger"></span>
 				</div>
 				<div class="form-floating py-2 col-12">
-					<input asp-for="Series" class="form-control border-0 shadow" />
+					<select asp-for="BrandID" asp-items="ViewBag.CategoryList" class="form-select border-0 shadow">
+						<option disabled selected>---Select Brand ID--- </option>
+					</select>
+					<label asp-for="BrandID" class="ms-2"></label>
+					<span asp-validation-for="BrandID" class="text-danger"></span>
+				</div>
+				<div class="form-floating py-2 col-12">
+					<select asp-for="Series" asp-items="ViewBag.SeriesList" class="form-select border-0 shadow">
+						<option disabled selected>---Select Series--- </option>
+					</select>
 					<label asp-for="Series" class="ms-2"></label>
 					<span asp-validation-for="Series" class="text-danger"></span>
 				</div>
