@@ -79,5 +79,5 @@ namespace TechStore.DataAccess.Migrations
             migrationBuilder.DropTable(
                 name: "Products");
         }
-    }
+    } 
 }

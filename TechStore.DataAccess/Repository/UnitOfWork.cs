@@ -17,11 +17,11 @@ namespace TechStore.DataAccess.Repository
 		public UnitOfWork(ApplicationDbContext db)
 		{
 			_db = db;
-			Category = new CategoryRepository(db);
-			Product = new ProductRepository(db);
+			Category = new CategoryRepository(_db);
+			Product = new ProductRepository(_db);
 		}
 
-		public void Save()
+		public void Save() 
 		{
 			_db.SaveChanges();
 			// throw new NotImplementedException();

@@ -18,7 +18,7 @@ namespace TechStore.Areas.Admin.Controllers
 			List<Product> objProductList = _unitofwork.Product.GetAll().ToList();
 			return View(objProductList);
 		}
-		public IActionResult Add(int? id)
+		public IActionResult Add(string? id)
 		{
 			// Product product = _db.Categories.FirstOrDefault(c => c.Id == id);
 			return View();
@@ -27,10 +27,6 @@ namespace TechStore.Areas.Admin.Controllers
 		[HttpPost]
 		public IActionResult Add(Product product)
 		{
-			if (product.Brand == product.DisplayOrder.ToString())
-			{
-				ModelState.AddModelError("Name", "Name and Orders must be different");
-			}
 			if (ModelState.IsValid)
 			{
 				_unitofwork.Product.Add(product);
@@ -38,7 +34,7 @@ namespace TechStore.Areas.Admin.Controllers
 				TempData["success"] = "Stock Order Added Successfully";
 				return RedirectToAction("Index");
 			}
-			return View(product);
+			return View();
 			// not required to pass an object
 		}
 
@@ -48,17 +44,17 @@ namespace TechStore.Areas.Admin.Controllers
 			{
 				return NotFound();
 			}
-			Product product = _unitofwork.Product.Get(c => c.ProductId == id);
+			Product? product = _unitofwork.Product.Get(c => c.ProductId == id);
+			if (product == null)
+			{
+				return NotFound();
+			}
 			return View(product);
 			// not required to pass an object
 		}
 		[HttpPost]
 		public IActionResult Edit(Product product)
 		{
-			if (product.Brand == product.DisplayOrder.ToString())
-			{
-				ModelState.AddModelError("Name", "Name and Orders must be different");
-			}
 			if (ModelState.IsValid)
 			{
 				_unitofwork.Product.Update(product);
@@ -66,7 +62,7 @@ namespace TechStore.Areas.Admin.Controllers
 				TempData["success"] = "Stock Order Updated Successfully";
 				return RedirectToAction("Index");
 			}
-			return View(product);
+			return View();
 			// not required to pass an object
 		}
 
@@ -77,24 +73,25 @@ namespace TechStore.Areas.Admin.Controllers
 				return NotFound();
 			}
 			Product? product = _unitofwork.Product.Get(c => c.ProductId == id);
+			if (product == null) 
+			{ 
+				return NotFound(); 
+			}
 			return View(product);
 			// not required to pass an object
 		}
 		[HttpPost, ActionName("Delete")]
 		public IActionResult DeletePost(string? id)
 		{
-			Product product = _unitofwork.Product.Get(c => c.ProductId == id);
+			Product? product = _unitofwork.Product.Get(c => c.ProductId == id);
 			if (product == null)
 			{
 				return NotFound();
 			}
 			// _db.Categories.Remove(product);
-			if (ModelState.IsValid)
-			{
-				_unitofwork.Product.Remove(product);
-				_unitofwork.Save();
-				TempData["success"] = "Stock Order Deleted Successfully";
-			}
+			_unitofwork.Product.Remove(product);
+			_unitofwork.Save();
+			TempData["success"] = "Stock Order Deleted Successfully";
 			return RedirectToAction("Index");
 			// return View(product);
 			// not required to pass an object
