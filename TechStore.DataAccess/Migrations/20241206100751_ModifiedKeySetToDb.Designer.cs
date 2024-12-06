@@ -11,8 +11,8 @@ using TechStore.DataAccess.Data;
 namespace TechStore.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241205152712_UpdatedKeySetToDb")]
-    partial class UpdatedKeySetToDb
+    [Migration("20241206100751_ModifiedKeySetToDb")]
+    partial class ModifiedKeySetToDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -109,6 +109,7 @@ namespace TechStore.DataAccess.Migrations
             modelBuilder.Entity("TechStore.Models.Product", b =>
                 {
                     b.Property<string>("ProductId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Brand")
@@ -145,7 +146,7 @@ namespace TechStore.DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            ProductId = "MP2N6HJ1",
+                            ProductId = "09b4ab76-9b49-4278-8a31-e30b2bb244e5",
                             Brand = "LENOVO",
                             DiscountPrice = 1059.99,
                             DisplayOrder = 30,
@@ -157,19 +158,19 @@ namespace TechStore.DataAccess.Migrations
                         },
                         new
                         {
-                            ProductId = "M62N6HJ1",
+                            ProductId = "418f00cb-3c1b-4cca-b071-43b7458fe4c4",
                             Brand = "LENOVO",
                             DiscountPrice = 2059.9899999999998,
                             DisplayOrder = 20,
                             ImageLink = "",
-                            Model = "Pro 5i",
+                            Model = "PRO 5i",
                             RegularPrice = 2099.9899999999998,
                             Series = "LEGION",
                             Specification = "abcd"
                         },
                         new
                         {
-                            ProductId = "A72N6HJ2",
+                            ProductId = "4aae79c9-e38e-43dc-83a5-79fe0bac94e5",
                             Brand = "ASUS",
                             DiscountPrice = 1259.99,
                             DisplayOrder = 25,
@@ -181,19 +182,19 @@ namespace TechStore.DataAccess.Migrations
                         },
                         new
                         {
-                            ProductId = "RP2N6HJ1",
+                            ProductId = "6b5786c6-3eed-4fb6-9183-6f5eaae7d897",
                             Brand = "ASUS",
                             DiscountPrice = 2399.9899999999998,
                             DisplayOrder = 10,
                             ImageLink = "",
-                            Model = "Strix G15",
+                            Model = "STRIX G15",
                             RegularPrice = 2599.9899999999998,
                             Series = "ROG",
                             Specification = "abcd"
                         },
                         new
                         {
-                            ProductId = "GT2N6HJ1",
+                            ProductId = "75d8624d-f365-4807-ae91-78483858f8dc",
                             Brand = "MSI",
                             DiscountPrice = 4959.9899999999998,
                             DisplayOrder = 10,
@@ -205,7 +206,7 @@ namespace TechStore.DataAccess.Migrations
                         },
                         new
                         {
-                            ProductId = "HP2N6HJ1",
+                            ProductId = "a55a96e0-660e-4407-ae45-bcb3b6f8a53e",
                             Brand = "HP",
                             DiscountPrice = 1159.99,
                             DisplayOrder = 20,
@@ -217,24 +218,24 @@ namespace TechStore.DataAccess.Migrations
                         },
                         new
                         {
-                            ProductId = "AC2N6HJ1",
+                            ProductId = "b694c472-76e9-4e71-9ac0-ccd28944335c",
                             Brand = "ACER",
                             DiscountPrice = 1150.99,
                             DisplayOrder = 20,
                             ImageLink = "",
-                            Model = "AN15",
+                            Model = "AN515",
                             RegularPrice = 1159.99,
                             Series = "NITRO",
                             Specification = "abcd"
                         },
                         new
                         {
-                            ProductId = "DL2N6HJ1",
+                            ProductId = "e612e509-77f0-4cd6-a784-0c75172db894",
                             Brand = "DELL",
                             DiscountPrice = 4100.9899999999998,
                             DisplayOrder = 5,
                             ImageLink = "",
-                            Model = "RM15",
+                            Model = "R15",
                             RegularPrice = 4159.9899999999998,
                             Series = "ALIENWARE",
                             Specification = "abcd"

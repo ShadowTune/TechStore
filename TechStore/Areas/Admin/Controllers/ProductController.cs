@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using NuGet.ProjectModel;
 using System.Collections.Generic;
 using TechStore.DataAccess.Data;
+using TechStore.DataAccess.Repository;
 using TechStore.DataAccess.Repository.IRepository;
 using TechStore.Models;
 using TechStore.Models.ViewModels;
@@ -138,7 +140,8 @@ namespace TechStore.Areas.Admin.Controllers
 			if (id == null)
 			{
 				return View(productVM);
-			} else
+			}
+			else
 			{
 				productVM.Product = _unitofwork.Product.Get(u => u.ProductId == id);
 				return View(productVM);
@@ -158,6 +161,14 @@ namespace TechStore.Areas.Admin.Controllers
 					string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
 					string productPath = Path.Combine(wwwRootPath, @"images\product");
 
+					if (!string.IsNullOrEmpty(productVM.Product.ImageLink))
+					{
+						var oldImagePath = Path.Combine(wwwRootPath, productVM.Product.ImageLink.TrimStart('\\'));
+						if (System.IO.File.Exists(oldImagePath))
+						{
+							System.IO.File.Delete(oldImagePath);
+						}
+					}
 					// Save the uploaded file
 					using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
 					{
@@ -167,16 +178,6 @@ namespace TechStore.Areas.Admin.Controllers
 					// Set the new image link
 					productVM.Product.ImageLink = @"\images\product\" + fileName;
 				}
-				else if (!string.IsNullOrEmpty(productVM.Product.ProductId))
-				{
-					// Preserve existing image link when no file is uploaded
-					var existingProduct = _unitofwork.Product.Get(u => u.ProductId == productVM.Product.ProductId);
-					if (existingProduct != null)
-					{
-						productVM.Product.ImageLink = existingProduct.ImageLink;
-					}
-				}
-
 				// Add or update the product
 				if (string.IsNullOrEmpty(productVM.Product.ProductId))
 				{
@@ -195,15 +196,17 @@ namespace TechStore.Areas.Admin.Controllers
 				TempData["success"] = "Product saved successfully.";
 				return RedirectToAction("Index");
 			}
-
-			// Repopulate CategoryList in case of validation failure
-			productVM.CategoryList = _unitofwork.Category.GetAll().Select(u => new SelectListItem
+			else
 			{
-				Text = u.Name,
-				Value = u.Id.ToString()
-			});
+				// Repopulate CategoryList in case of validation failure
+				productVM.CategoryList = _unitofwork.Category.GetAll().Select(u => new SelectListItem
+				{
+					Text = u.Name,
+					Value = u.Id.ToString()
+				});
 
-			return View(productVM);
+				return View(productVM);
+			}
 		}
 
 
@@ -226,5 +229,6 @@ namespace TechStore.Areas.Admin.Controllers
 			// return View(product);
 			// not required to pass an object
 		}
+
 	}
 }

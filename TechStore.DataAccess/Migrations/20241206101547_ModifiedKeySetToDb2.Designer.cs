@@ -11,8 +11,8 @@ using TechStore.DataAccess.Data;
 namespace TechStore.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241204165957_UpdateNamesToDb")]
-    partial class UpdateNamesToDb
+    [Migration("20241206101547_ModifiedKeySetToDb2")]
+    partial class ModifiedKeySetToDb2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,13 +37,11 @@ namespace TechStore.DataAccess.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Series")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -111,14 +109,12 @@ namespace TechStore.DataAccess.Migrations
             modelBuilder.Entity("TechStore.Models.Product", b =>
                 {
                     b.Property<string>("ProductId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Brand")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("BrandID")
-                        .HasColumnType("int");
 
                     b.Property<double>("DiscountPrice")
                         .HasColumnType("float");
@@ -127,7 +123,6 @@ namespace TechStore.DataAccess.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ImageLink")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Model")
@@ -141,120 +136,110 @@ namespace TechStore.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ProductId");
+                    b.Property<string>("Specification")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("BrandID");
+                    b.HasKey("ProductId");
 
                     b.ToTable("Products");
 
                     b.HasData(
                         new
                         {
-                            ProductId = "MP2N6HJ1",
+                            ProductId = "09b4ab76-9b49-4278-8a31-e30b2bb244e5",
                             Brand = "LENOVO",
-                            BrandID = 1,
                             DiscountPrice = 1059.99,
                             DisplayOrder = 30,
                             ImageLink = "",
                             Model = "15IAX9",
                             RegularPrice = 1099.99,
-                            Series = "LOQ"
+                            Series = "LOQ",
+                            Specification = "abcd"
                         },
                         new
                         {
-                            ProductId = "M62N6HJ1",
+                            ProductId = "418f00cb-3c1b-4cca-b071-43b7458fe4c4",
                             Brand = "LENOVO",
-                            BrandID = 1,
                             DiscountPrice = 2059.9899999999998,
                             DisplayOrder = 20,
                             ImageLink = "",
-                            Model = "Pro 5i",
+                            Model = "PRO 5i",
                             RegularPrice = 2099.9899999999998,
-                            Series = "LEGION"
+                            Series = "LEGION",
+                            Specification = "abcd"
                         },
                         new
                         {
-                            ProductId = "A72N6HJ2",
+                            ProductId = "4aae79c9-e38e-43dc-83a5-79fe0bac94e5",
                             Brand = "ASUS",
-                            BrandID = 2,
                             DiscountPrice = 1259.99,
                             DisplayOrder = 25,
                             ImageLink = "",
                             Model = "A15",
                             RegularPrice = 1399.99,
-                            Series = "TUF"
+                            Series = "TUF",
+                            Specification = "abcd"
                         },
                         new
                         {
-                            ProductId = "RP2N6HJ1",
+                            ProductId = "6b5786c6-3eed-4fb6-9183-6f5eaae7d897",
                             Brand = "ASUS",
-                            BrandID = 2,
                             DiscountPrice = 2399.9899999999998,
                             DisplayOrder = 10,
                             ImageLink = "",
-                            Model = "Strix G15",
+                            Model = "STRIX G15",
                             RegularPrice = 2599.9899999999998,
-                            Series = "ROG"
+                            Series = "ROG",
+                            Specification = "abcd"
                         },
                         new
                         {
-                            ProductId = "GT2N6HJ1",
+                            ProductId = "75d8624d-f365-4807-ae91-78483858f8dc",
                             Brand = "MSI",
-                            BrandID = 5,
                             DiscountPrice = 4959.9899999999998,
                             DisplayOrder = 10,
                             ImageLink = "",
                             Model = "GT77",
                             RegularPrice = 5099.9899999999998,
-                            Series = "TITAN"
+                            Series = "TITAN",
+                            Specification = "abcd"
                         },
                         new
                         {
-                            ProductId = "HP2N6HJ1",
+                            ProductId = "a55a96e0-660e-4407-ae45-bcb3b6f8a53e",
                             Brand = "HP",
-                            BrandID = 6,
                             DiscountPrice = 1159.99,
                             DisplayOrder = 20,
                             ImageLink = "",
                             Model = "15",
                             RegularPrice = 1199.99,
-                            Series = "VICTUS"
+                            Series = "VICTUS",
+                            Specification = "abcd"
                         },
                         new
                         {
-                            ProductId = "AC2N6HJ1",
+                            ProductId = "b694c472-76e9-4e71-9ac0-ccd28944335c",
                             Brand = "ACER",
-                            BrandID = 3,
                             DiscountPrice = 1150.99,
                             DisplayOrder = 20,
                             ImageLink = "",
-                            Model = "AN15",
+                            Model = "AN515",
                             RegularPrice = 1159.99,
-                            Series = "NITRO"
+                            Series = "NITRO",
+                            Specification = "abcd"
                         },
                         new
                         {
-                            ProductId = "DL2N6HJ1",
+                            ProductId = "e612e509-77f0-4cd6-a784-0c75172db894",
                             Brand = "DELL",
-                            BrandID = 4,
                             DiscountPrice = 4100.9899999999998,
                             DisplayOrder = 5,
                             ImageLink = "",
-                            Model = "RM15",
+                            Model = "R15",
                             RegularPrice = 4159.9899999999998,
-                            Series = "ALIENWARE"
+                            Series = "ALIENWARE",
+                            Specification = "abcd"
                         });
-                });
-
-            modelBuilder.Entity("TechStore.Models.Product", b =>
-                {
-                    b.HasOne("TechStore.Models.Category", "category")
-                        .WithMany()
-                        .HasForeignKey("BrandID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("category");
                 });
 #pragma warning restore 612, 618
         }

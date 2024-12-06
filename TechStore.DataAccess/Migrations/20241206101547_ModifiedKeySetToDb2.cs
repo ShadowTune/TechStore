@@ -5,7 +5,7 @@
 namespace TechStore.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class done : Migration
+    public partial class ModifiedKeySetToDb2 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
