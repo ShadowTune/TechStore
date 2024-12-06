@@ -24,10 +24,10 @@ namespace TechStore.DataAccess.Repository
 			// throw new NotImplementedException();
 		}
 
-		public void Delete(T entity)
+		/*public void Delete(T entity)
 		{
 			throw new NotImplementedException();
-		}
+		}*/
 
 		public T Get(Expression<Func<T, bool>> predicate)
 		{

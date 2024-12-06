@@ -1,17 +1,17 @@
 ﻿@model List<Product>
 <partial name = "_Notification"></partial>
-	<div class="container">
-		<div class="row py-4">
-			<div class="col-6">
-				Product List
-			</div>
-			<div class="col-6 text-end">
-				<a asp-controller ="Product" asp-action="Add" class="btn btn-primary">
+<div class="container">
+	<div class="row py-4">
+		<div class="col-6">
+			Product List
+		</div>
+		<div class="col-6 text-end">
+			<a asp-controller="Product" asp-action="UpdateAdd" class="btn btn-primary">
 				<i class="bi bi-plus-circle"></i> Add Product
-				</a>
-			</div>
+			</a>
 		</div>
 	</div>
+</div>
 <table class="table table-bordered table-striped">
 	<thead>
 		<tr>
@@ -35,7 +35,7 @@
 				<td>@obj.DisplayOrder</td>
 				<td>
 					<div class="w-75 btn-group" role="group">
-						<a asp-controller="Product" asp-action="Edit" asp-route-id = "@obj.ProductId" class="btn btn-primary mx-2">
+						<a asp-controller="Product" asp-action="UpdateAdd" asp-route-id="@obj.ProductId" class="btn btn-primary mx-2">
 							<i class="bi bi-pencil-square"></i> Edit
 						</a>
 						<a asp-controller="Product" asp-action="Delete" asp-route-id="@obj.ProductId" class="btn btn-danger mx-2">

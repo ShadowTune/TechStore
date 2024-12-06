@@ -6,21 +6,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace TechStore.Models
 {
 	public class Product
 	{
 		[Key]
-		public string ProductId { get; set; }
+		[DatabaseGenerated(DatabaseGeneratedOption.Identity)] // Use Identity for numeric IDs or None for GUIDs
+		public string? ProductId { get; set; }
 		[Required]
-		[MaxLength(30)]
 		[DisplayName("Brand Name")]
+		[ValidateNever]
 		public string Brand { get; set; }
 		[Required]
+		[ValidateNever]
 		[DisplayName("Series")]
 		public string Series { get; set; }
 		[Required]
+		[ValidateNever]
 		[DisplayName("Model")]
 		public string Model { get; set; }
 		[Required]
@@ -35,11 +39,7 @@ namespace TechStore.Models
 		[DisplayName("Stock Orders")]
 		[Range(1, 100, ErrorMessage = "Order must be in between 1-100")]
 		public int DisplayOrder { get; set; }
-
-		public int BrandID { get; set; }
-		[ForeignKey("BrandID")]
-		public Category category { get; set; }
-
-		public string ImageLink { get; set; }
+		public string? Specification { get; set; }
+		public string? ImageLink { get; set; }
 	}
 }

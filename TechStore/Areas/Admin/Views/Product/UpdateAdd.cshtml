@@ -1,0 +1,107 @@
+﻿@model ProductVM
+<div class="card-shadow border-0 mt-4">
+	<div class="card-header bg-secondary bg-gradient ml-0 py-3">
+		<div class="row">
+			<div class="col-12 text-center">
+				<h2 class="text-white py-2">@(Model.Product.ProductId != null ? "Edit" : "Add") Product</h2>
+			</div>
+		</div>
+	</div>
+	<div class="card-body p-4">
+		<form method="post" class="row" enctype="multipart/form-data">
+			<input asp-for="Product.ProductId" hidden/> 
+			<div class="row">
+				<div class="col-8">
+					<div class="border p-3">
+						<div class="form-floating py-2 col-12">
+							<input asp-for="Product.Brand" class="form-control border-0 shadow" />
+							<label asp-for="Product.Brand" class="ms-2"></label>
+							<span asp-validation-for="Product.Brand" class="text-danger"></span>
+						</div>
+						<div class="form-floating py-2 col-12">
+							<input asp-for="Product.Series" class="form-control border-0 shadow" />
+							<label asp-for="Product.Series" class="ms-2"></label>
+							<span asp-validation-for="Product.Series" class="text-danger"></span>
+						</div>
+						<div class="form-floating py-2 col-12">
+							<input asp-for="Product.Model" class="form-control border-0 shadow" />
+							<label asp-for="Product.Model" class="ms-2"></label>
+							<span asp-validation-for="Product.Model" class="text-danger"></span>
+						</div>
+						<div class="py-2 col-12">
+							<label asp-for="Product.Specification" class="ms-2 text-muted"></label>
+							<textarea asp-validation-for="Product.Specification" class="text-danger"></textarea>
+						</div>
+						<div class="form-floating py-2 col-12">
+							<input asp-for="Product.RegularPrice" class="form-control border-0 shadow" />
+							<label asp-for="Product.RegularPrice" class="ms-2"></label>
+							<span asp-validation-for="Product.RegularPrice" class="text-danger"></span>
+						</div>
+						<div class="form-floating py-2 col-12">
+							<input asp-for="Product.DiscountPrice" class="form-control border-0 shadow" />
+							<label asp-for="Product.DiscountPrice" class="ms-2"></label>
+							<span asp-validation-for="Product.DiscountPrice" class="text-danger"></span>
+						</div>
+						<div class="form-floating py-2 col-12">
+							<input asp-for="Product.DisplayOrder" class="form-control border-0 shadow" />
+							<label asp-for="Product.DisplayOrder" class="ms-2"></label>
+							<span asp-validation-for="Product.DisplayOrder" class="text-danger"></span>
+						</div>
+						<div class="form-floating py-2 col-12">
+							<input type="file" name="file" class="form-control border-0 shadow" />
+							<label asp-for="Product.ImageLink" class="ms-2"></label>
+						</div>
+						<div class="row">
+							<div class="col-6 col-md-3">
+								@if (Model.Product.ProductId != null)
+								{
+									<button type="submit" class="btn btn-primary form-control">Update</button>
+								}
+								else
+								{
+									<button type="submit" class="btn btn-primary form-control">Add</button>
+								}
+							</div>
+							<div class="col-6 col-md-3">
+								<a asp-controller="Product" asp-action="Index" class="btn btn-primary border form-control">Back</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-4">
+					<img src="@Model.Product.ImageLink" width="100%"
+					style="border-radius:5px; border:1px solid #bbb9b9" />
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+
+@section Scripts {
+	<script>
+		tinymce.init({
+		  selector: 'textarea',
+		  plugins: [
+			// Core editing features
+			'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
+			// Your account includes a free trial of TinyMCE premium features
+			// Try the most popular premium features until Dec 19, 2024:
+			'checklist', 'mediaembed', 'casechange', 'export', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'editimage', 'advtemplate', 'ai', 'mentions', 'tinycomments', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss', 'markdown',
+			// Early access to document converters
+			'importword', 'exportword', 'exportpdf'
+		  ],
+		  toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+		  tinycomments_mode: 'embedded',
+		  tinycomments_author: 'Author name',
+		  mergetags_list: [
+			{ value: 'First.Name', title: 'First Name' },
+			{ value: 'Email', title: 'Email' },
+		  ],
+		  ai_request: (request, respondWith) => respondWith.string(() => Promise.reject('See docs to implement AI Assistant')),
+		});
+	</script>
+	@{
+		<partial name="_ValidationScriptsPartial" />
+	}
+}
