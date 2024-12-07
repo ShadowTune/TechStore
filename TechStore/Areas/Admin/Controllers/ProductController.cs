@@ -210,6 +210,12 @@ namespace TechStore.Areas.Admin.Controllers
 		}
 
 
+		[HttpGet]
+		public IActionResult GetAll()
+		{
+			List<Product> objProductList = _unitofwork.Product.GetAll(includeProperties: "Category").ToList();
+			return Json(new { data = objProductList });
+		}
 
 		public IActionResult Delete(string? id)
 		{
@@ -230,13 +236,5 @@ namespace TechStore.Areas.Admin.Controllers
 			// return View(product);
 			// not required to pass an object
 		}
-
-		[HttpGet]
-		public IActionResult GetAll()
-		{
-			List<Product> productList = _unitofwork.Product.GetAll(includeProperties: "Category").ToList();
-			return Json(new {data = productList});
-		}
-
 	}
 }

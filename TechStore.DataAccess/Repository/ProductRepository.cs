@@ -19,7 +19,23 @@ namespace TechStore.DataAccess.Repository
 
 		public void Update(Product product)
 		{
-			_db.Products.Update(product);
+			var product2 = _db.Products.FirstOrDefault(u => u.ProductId == product.ProductId);
+			if (product2 != null)
+			{
+				product2.ProductId = product.ProductId;
+				product2.RegularPrice = product.RegularPrice;
+				product2.DiscountPrice = product.DiscountPrice;	
+				product2.Series = product.Series;
+				product2.Model = product.Model;
+				product2.DisplayOrder = product.DisplayOrder;
+				product2.Specification = product.Specification;	
+				product2.BrandId = product.BrandId;
+				if (product.ImageLink != null)
+				{
+					product2.ImageLink = product.ImageLink;
+				}
+			}
+
 		}
 	}
 }

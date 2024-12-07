@@ -17,7 +17,7 @@ namespace TechStore.DataAccess.Repository
 		{
 			_db = db;
 			this.dbSet = _db.Set<T>();
-			_db.Products.Include(u => u.Category);
+			_db.Products.Include(u => u.Category).Include(u => u.BrandId);
 		}
 		public void Add(T entity)
 		{
@@ -32,18 +32,19 @@ namespace TechStore.DataAccess.Repository
 
 		public T Get(Expression<Func<T, bool>> predicate, string? includeProperties = null)
 		{
-			IQueryable<T> query = dbSet;
-			query = query.Where(predicate);
-			if (!string.IsNullOrEmpty(includeProperties))
+			IQueryable<T> query = dbSet.Where(predicate);
+
+			// Include default properties if `includeProperties` is null
+			includeProperties ??= "Category";
+
+			foreach (var property in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
 			{
-				foreach (var property in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-				{
-					query = query.Include(property);
-				}
+				query = query.Include(property);
 			}
+
 			return query.FirstOrDefault();
-			// throw new NotImplementedException();
 		}
+
 
 		public IEnumerable<T> GetAll(string? includeProperties = null)
 		{
@@ -51,7 +52,7 @@ namespace TechStore.DataAccess.Repository
 			IQueryable<T> query = dbSet;
 			if (!string.IsNullOrEmpty(includeProperties)) 
 			{
-				foreach (var property in includeProperties.Split(new char[] { ','}, StringSplitOptions.RemoveEmptyEntries))
+				foreach (var property in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
 				{
 					query = query.Include(property);
 				}
