@@ -17,6 +17,7 @@ namespace TechStore.DataAccess.Repository
 		{
 			_db = db;
 			this.dbSet = _db.Set<T>();
+			_db.Products.Include(u => u.Category);
 		}
 		public void Add(T entity)
 		{
@@ -29,18 +30,33 @@ namespace TechStore.DataAccess.Repository
 			throw new NotImplementedException();
 		}*/
 
-		public T Get(Expression<Func<T, bool>> predicate)
+		public T Get(Expression<Func<T, bool>> predicate, string? includeProperties = null)
 		{
 			IQueryable<T> query = dbSet;
 			query = query.Where(predicate);
+			if (!string.IsNullOrEmpty(includeProperties))
+			{
+				foreach (var property in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+				{
+					query = query.Include(property);
+				}
+			}
 			return query.FirstOrDefault();
 			// throw new NotImplementedException();
 		}
 
-		public IEnumerable<T> GetAll()
+		public IEnumerable<T> GetAll(string? includeProperties = null)
 		{
+
 			IQueryable<T> query = dbSet;
-			return query.ToList();
+			if (!string.IsNullOrEmpty(includeProperties)) 
+			{
+				foreach (var property in includeProperties.Split(new char[] { ','}, StringSplitOptions.RemoveEmptyEntries))
+				{
+					query = query.Include(property);
+				}
+			}
+ 			return query.ToList();
 			// throw new NotImplementedException();
 		}
 		public void Remove(T entity)

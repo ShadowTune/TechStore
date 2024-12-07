@@ -16,10 +16,6 @@ namespace TechStore.Models
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)] // Use Identity for numeric IDs or None for GUIDs
 		public string? ProductId { get; set; }
 		[Required]
-		[DisplayName("Brand Name")]
-		[ValidateNever]
-		public string Brand { get; set; }
-		[Required]
 		[ValidateNever]
 		[DisplayName("Series")]
 		public string Series { get; set; }
@@ -39,7 +35,14 @@ namespace TechStore.Models
 		[DisplayName("Stock Orders")]
 		[Range(1, 100, ErrorMessage = "Order must be in between 1-100")]
 		public int DisplayOrder { get; set; }
+		[ValidateNever]
 		public string? Specification { get; set; }
+		[ValidateNever]
 		public string? ImageLink { get; set; }
+		[ValidateNever]
+		public int BrandId { get; set; }
+		[ForeignKey("BrandId")]
+		[ValidateNever]
+		public Category? Category { get; set; }
 	}
 }

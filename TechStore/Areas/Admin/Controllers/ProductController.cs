@@ -22,7 +22,7 @@ namespace TechStore.Areas.Admin.Controllers
 		}
 		public IActionResult Index()
 		{
-			List<Product> objProductList = _unitofwork.Product.GetAll().ToList();
+			List<Product> objProductList = _unitofwork.Product.GetAll(includeProperties: "Category").ToList();
 			return View(objProductList);
 		}
 		/*public IActionResult Add(string? selectedBrand = null)
@@ -129,7 +129,7 @@ namespace TechStore.Areas.Admin.Controllers
 		{
 			ProductVM productVM = new()
 			{
-				CategoryList = _unitofwork.Category.GetAll().Select(u => new SelectListItem
+				CategoryList = _unitofwork.Category.GetAll().Distinct().Select(u => new SelectListItem
 				{
 					Text = u.Name,
 					Value = u.Id.ToString()
@@ -223,11 +223,19 @@ namespace TechStore.Areas.Admin.Controllers
 			Product? product = _unitofwork.Product.Get(c => c.ProductId == id);
 			// _db.Categories.Remove(product);
 			_unitofwork.Product.Remove(product);
+
 			_unitofwork.Save();
 			TempData["success"] = "Stock Order Deleted Successfully";
 			return RedirectToAction("Index");
 			// return View(product);
 			// not required to pass an object
+		}
+
+		[HttpGet]
+		public IActionResult GetAll()
+		{
+			List<Product> productList = _unitofwork.Product.GetAll(includeProperties: "Category").ToList();
+			return Json(new {data = productList});
 		}
 
 	}
