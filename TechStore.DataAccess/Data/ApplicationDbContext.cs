@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using TechStore.Models;
 
 namespace TechStore.DataAccess.Data
 {
-	public class ApplicationDbContext : DbContext
+	public class ApplicationDbContext : IdentityDbContext<IdentityUser>
 	{
 		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
 		{
@@ -13,7 +15,7 @@ namespace TechStore.DataAccess.Data
 		public DbSet<Product> Products { get; set; }
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			// base.OnModelCreating(modelBuilder);
+			base.OnModelCreating(modelBuilder);
 			modelBuilder.Entity<Category>().HasData(
 				new Category { Id = 1, Name = "LENOVO", Series = "LOQ", DisplayOrder = 12 },
 				new Category { Id = 2, Name = "ASUS", Series = "TUF", DisplayOrder = 5 },
