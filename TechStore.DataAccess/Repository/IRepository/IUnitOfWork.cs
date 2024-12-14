@@ -10,6 +10,11 @@ namespace TechStore.DataAccess.Repository.IRepository
 	{
 		ICategoryRepository Category { get; }
 		IProductRepository Product { get; }
+		ICompanyRepository Company { get; }
+		ICartRepository Cart { get; }
+		IApplicationUserRepository ApplicationUser { get; }
+		IOrderDetailRepository OrderDetail { get; }
+		IOrderHeaderRepository OrderHeader { get; }
 		void Save();
 	}
 }

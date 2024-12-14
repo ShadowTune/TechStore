@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using NuGet.ProjectModel;
 using System.Collections.Generic;
@@ -7,10 +8,12 @@ using TechStore.DataAccess.Repository;
 using TechStore.DataAccess.Repository.IRepository;
 using TechStore.Models;
 using TechStore.Models.ViewModels;
+using TechStore.Utility;
 
 namespace TechStore.Areas.Admin.Controllers
 {
 	[Area("Admin")]
+	[Authorize(Roles = SD.Role_admin)]
 	public class ProductController : Controller
 	{
 		private readonly IUnitOfWork _unitofwork;
@@ -216,7 +219,6 @@ namespace TechStore.Areas.Admin.Controllers
 			List<Product> objProductList = _unitofwork.Product.GetAll(includeProperties: "Category").ToList();
 			return Json(new { data = objProductList });
 		}
-
 		public IActionResult Delete(string? id)
 		{
 			Product? product = _unitofwork.Product.Get(c => c.ProductId == id);

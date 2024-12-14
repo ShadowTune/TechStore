@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TechStore.DataAccess.Data;
 using TechStore.DataAccess.Repository.IRepository;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 namespace TechStore.DataAccess.Repository
 {
 	public class Repository<T> : IRepository<T> where T : class
@@ -15,9 +17,9 @@ namespace TechStore.DataAccess.Repository
 		internal DbSet<T> dbSet;
 		public Repository(ApplicationDbContext db)
 		{
-			_db = db;
+			_db = db; 
 			this.dbSet = _db.Set<T>();
-			_db.Products.Include(u => u.Category).Include(u => u.BrandId);
+			_db.Products.Include(u => u.Category).Include(u => u.BrandId).Include(u => u.ProductId).Include(u => u.BrandId);
 		}
 		public void Add(T entity)
 		{
@@ -30,26 +32,40 @@ namespace TechStore.DataAccess.Repository
 			throw new NotImplementedException();
 		}*/
 
-		public T Get(Expression<Func<T, bool>> predicate, string? includeProperties = null)
+		public T Get(Expression<Func<T, bool>>? predicate = null, string? includeProperties = null, bool tracked = false)
 		{
-			IQueryable<T> query = dbSet.Where(predicate);
-
-			// Include default properties if `includeProperties` is null
-			includeProperties ??= "Category";
-
-			foreach (var property in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-			{
-				query = query.Include(property);
+			if (tracked == true) { 
+				IQueryable<T> query = dbSet.Where(predicate);
+				if (!string.IsNullOrEmpty(includeProperties))
+				{
+					foreach (var includeProperty in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+					{
+						query = query.Include(includeProperty.Trim());
+					}
+				}
+				return query.FirstOrDefault();
+			} else {
+				IQueryable<T> query = dbSet.AsNoTracking().Where(predicate);
+				if (!string.IsNullOrEmpty(includeProperties))
+				{
+					foreach (var includeProperty in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+					{
+						query = query.Include(includeProperty.Trim());
+					}
+				}
+				return query.FirstOrDefault();
 			}
-
-			return query.FirstOrDefault();
 		}
 
 
-		public IEnumerable<T> GetAll(string? includeProperties = null)
+		public IEnumerable<T> GetAll(Expression<Func<T, bool>>? predicate = null, string? includeProperties = null)
 		{
 
 			IQueryable<T> query = dbSet;
+			if (predicate != null)
+			{
+				query = query.Where(predicate);
+			}
 			if (!string.IsNullOrEmpty(includeProperties)) 
 			{
 				foreach (var property in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))

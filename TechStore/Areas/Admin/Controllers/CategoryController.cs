@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TechStore.DataAccess.Data;
 using TechStore.DataAccess.Repository.IRepository;
 using TechStore.Models;
+using TechStore.Utility;
 
 namespace TechStore.Areas.Admin.Controllers
 {
 	[Area("Admin")]
+	[Authorize(Roles = SD.Role_admin)]
 	public class CategoryController : Controller
 	{
 		private readonly IUnitOfWork _unitofwork;
@@ -102,6 +105,13 @@ namespace TechStore.Areas.Admin.Controllers
 			return RedirectToAction("Index");
 			// return View(category);
 			// not required to pass an object
+		}
+
+		[HttpGet]
+		public IActionResult GetAll()
+		{
+			List<Category> CategoryList = _unitofwork.Category.GetAll().ToList();
+			return Json(new { data = CategoryList });
 		}
 	}
 }
