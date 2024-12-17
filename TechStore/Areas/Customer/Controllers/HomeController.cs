@@ -60,7 +60,7 @@ namespace TechStore.Areas.Customer.Controllers
 			};*/
 			var claimsIdentity = (ClaimsIdentity)User.Identity;
 			var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
-			// cart.ApplicationUserId = claim.Value;
+			cart.ApplicationUserId = claim.Value;
 
 			Cart cartFromDb = _unitOfWork.Cart.Get(u => 
 			u.ApplicationUserId == claim.Value && u.ProductId == cart.ProductId);
@@ -68,18 +68,18 @@ namespace TechStore.Areas.Customer.Controllers
 			if (cartFromDb != null)
 			{
 				cartFromDb.Count += cart.Count;
-				_unitOfWork.Cart.Update(cart);
+				_unitOfWork.Cart.Update(cartFromDb);
 				_unitOfWork.Save();
 			} else
 			{
 				_unitOfWork.Cart.Add(cart);
 				_unitOfWork.Save();
 				HttpContext.Session.SetInt32(SD.SessionCart, _unitOfWork.
-					Cart.GetAll(u => u.ApplicationUserId == claim.Value).Count());
+					Cart.Get(u => u.ApplicationUserId == claim.Value).Count);
 			}
-
 			// _unitOfWork.Cart.Add(cart);
 			// Product product = _unitOfWork.Product.Get(u => u.ProductId == productId, includeProperties: "Category");
+			TempData["success"] = "Product Added To Cart";
 			return RedirectToAction("Index");
 		}
 

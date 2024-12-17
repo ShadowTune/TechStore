@@ -222,6 +222,7 @@ namespace TechStore.Areas.Customer.Controllers
 			cartFromDb.Count += 1;
 			_unitOfWork.Cart.Update(cartFromDb);
 			_unitOfWork.Cart.Save();
+			TempData["success"] = "Product Added To Cart";
 			return RedirectToAction("Index");
 		}
 
@@ -241,6 +242,7 @@ namespace TechStore.Areas.Customer.Controllers
 				_unitOfWork.Cart.Update(cartFromDb);
 			}
 			_unitOfWork.Cart.Save();
+			TempData["success"] = "Product Deducted From Cart";
 			return RedirectToAction("Index");
 		}
 
@@ -252,6 +254,7 @@ namespace TechStore.Areas.Customer.Controllers
 
 			_unitOfWork.Cart.Remove(cartFromDb);
 			_unitOfWork.Cart.Save();
+			TempData["success"] = "Product Removed From Cart";
 			return RedirectToAction("Index");
 		}
 	}
