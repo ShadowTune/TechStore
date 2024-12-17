@@ -2,15 +2,15 @@
 
 <div class="container row pt-4">
     <div class="col-12 text-center">
-        <h1 class="text-primary text-center">Order Placed Successfully!</h1>
-         Your Order Number is : @Model <br /><br />
+        <h1 class="text-primary text-center">Payment Successfull!</h1>
+        Order Number : @Model <br /><br />
         <img src="~/images/—Pngtree—green check mark_8873320.jpg" width="30%" />
     </div>
     <div class="col-12 text-center" style="color:maroon">
         <br />
-        Your order has been placed successfully! <br />
+        Your payment is confirmed! <br />
         <a asp-area="Admin" asp-controller="Order" asp-action="Index"
            asp-route-orderHeaderId="@Model" class="btn btn-primary">Back To Orders</a>
-    </div> 
+    </div>
 </div>
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Stripe;
 using Stripe.Checkout;
 using System.Security.Claims;
@@ -39,7 +40,7 @@ namespace TechStore.Areas.Customer.Controllers
 				CartVM.OrderHeader.OrderCost += (cart.CartCost * cart.Count);
 			}
 			return View(CartVM);
-		} 
+		}
 
 		public IActionResult Summary(CartVM cartVM)
 		{
@@ -48,7 +49,7 @@ namespace TechStore.Areas.Customer.Controllers
 
 			cartVM = new CartVM()
 			{
-				CartList = _unitOfWork.Cart.GetAll(u => 
+				CartList = _unitOfWork.Cart.GetAll(u =>
 				u.ApplicationUser.Id == userId, includeProperties: "Product"),
 				OrderHeader = new()
 			};
@@ -98,7 +99,7 @@ namespace TechStore.Areas.Customer.Controllers
 			// cartVM.OrderHeader.PostalCode = cartVM.OrderHeader.ApplicationUser.PostalCode;
 			CartVM.OrderHeader.OrderDate = System.DateTime.Now;
 			CartVM.OrderHeader.ApplicationUserId = userId;
-			 
+
 			ApplicationUser applicationUser = _unitOfWork.ApplicationUser.Get(u => u.Id == userId);
 
 			foreach (var cart in CartVM.CartList)
@@ -111,7 +112,9 @@ namespace TechStore.Areas.Customer.Controllers
 			{
 				CartVM.OrderHeader.PaymentStatus = SD.PaymentStatusPending;
 				CartVM.OrderHeader.OrderStatus = SD.StatusPending;
-			} else {
+			}
+			else
+			{
 				CartVM.OrderHeader.PaymentStatus = SD.PaymentStatusDelayedPayment;
 				CartVM.OrderHeader.OrderStatus = SD.StatusApproved;
 			}
@@ -124,7 +127,7 @@ namespace TechStore.Areas.Customer.Controllers
 				OrderDetail orderDetail = new()
 				{
 					ProductId = cart.ProductId,
-					OrderHeaderId = CartVM.OrderHeader.OrderHeaderId,
+					OrderHeaderId = CartVM.OrderHeader.Id,
 					OrderPrice = cart.CartCost,
 					OrderCount = cart.Count
 				};
@@ -134,12 +137,11 @@ namespace TechStore.Areas.Customer.Controllers
 
 			if (applicationUser.CompanyId.GetValueOrDefault() == 0)
 			{
-				StripeConfiguration.ApiKey = "sk_test_51QUhfDArRUxZNyrM4W49NP1r7b0eDC6ynRZPELM60OwIri4A3AhCOcpC3BLqmb445btrLHXWJerDtfYGbc7mYueG00J9jeQlQ2";
 				var domain = "https://localhost:7007/";
 				var options = new SessionCreateOptions
 				{
-					SuccessUrl = domain+ $"customer/cart/OrderConfirmation?orderheaderId={CartVM.OrderHeader.OrderHeaderId}",
-					CancelUrl = domain+"customer/cart/index",
+					SuccessUrl = domain + $"customer/cart/OrderConfirmation?orderheaderId={CartVM.OrderHeader.Id}",
+					CancelUrl = domain + "customer/cart/index",
 					LineItems = new List<SessionLineItemOptions>(),
 					Mode = "payment",
 				};
@@ -150,7 +152,7 @@ namespace TechStore.Areas.Customer.Controllers
 					{
 						PriceData = new SessionLineItemPriceDataOptions
 						{
-							UnitAmount = (long)items.CartCost * 100,
+							UnitAmount = (long)(items.CartCost * 100),
 							Currency = "usd",
 							ProductData = new SessionLineItemPriceDataProductDataOptions
 							{
@@ -164,22 +166,22 @@ namespace TechStore.Areas.Customer.Controllers
 				var service = new SessionService();
 				Session session = service.Create(options);
 				_unitOfWork.OrderHeader.UpdateStripePaymentId(CartVM.
-					OrderHeader.OrderHeaderId, session.Id, session.PaymentIntentId);
-				
+					OrderHeader.Id, session.Id, session.PaymentIntentId);
+
 				_unitOfWork.Save();
 				Response.Headers.Add("Location", session.Url);
 				return new StatusCodeResult(303);
 			}
 
-			return RedirectToAction(nameof(OrderConfirmation), 
-				new {orderheaderId = CartVM.OrderHeader.OrderHeaderId});
-			
+			return RedirectToAction(nameof(OrderConfirmation),
+				new { orderheaderId = CartVM.OrderHeader.Id });
+
 		}
 
 		public IActionResult OrderConfirmation(int orderHeaderId)
 		{
-			OrderHeader orderHeader = _unitOfWork.OrderHeader.Get(u => 
-				u.OrderHeaderId == orderHeaderId, includeProperties: "ApplicationUser");	
+			OrderHeader orderHeader = _unitOfWork.OrderHeader.Get(u =>
+				u.Id == orderHeaderId, includeProperties: "ApplicationUser");
 
 			if (orderHeader.PaymentStatus != SD.PaymentStatusDelayedPayment)
 			{
@@ -190,13 +192,13 @@ namespace TechStore.Areas.Customer.Controllers
 					_unitOfWork.OrderHeader.UpdateStripePaymentId(
 						orderHeaderId, session.Id, session.PaymentIntentId);
 
-					_unitOfWork.OrderHeader.UpdateStatus(orderHeaderId, 
+					_unitOfWork.OrderHeader.UpdateStatus(orderHeaderId,
 						SD.StatusApproved, SD.PaymentStatusApproved);
 
 					_unitOfWork.Save();
 				}
 			}
-			
+
 			List<Cart> carts = _unitOfWork.Cart.GetAll(
 				u => u.ApplicationUserId == orderHeader.ApplicationUserId).ToList();
 
@@ -225,9 +227,12 @@ namespace TechStore.Areas.Customer.Controllers
 
 		public IActionResult Minus(int cartId)
 		{
-			var cartFromDb = _unitOfWork.Cart.Get(u => u.CartId == cartId);
+			var cartFromDb = _unitOfWork.Cart.Get(u => u.CartId == cartId, tracked: true);
 			if (cartFromDb.Count == 1)
 			{
+				HttpContext.Session.SetInt32(SD.SessionCart, _unitOfWork.Cart.GetAll(u => 
+									u.ApplicationUserId == cartFromDb.ApplicationUserId).Count() - 1);
+
 				_unitOfWork.Cart.Remove(cartFromDb);
 			}
 			else
@@ -241,7 +246,10 @@ namespace TechStore.Areas.Customer.Controllers
 
 		public IActionResult Remove(int cartId)
 		{
-			var cartFromDb = _unitOfWork.Cart.Get(u => u.CartId == cartId);
+			var cartFromDb = _unitOfWork.Cart.Get(u => u.CartId == cartId, tracked: true);
+			HttpContext.Session.SetInt32(SD.SessionCart, _unitOfWork.Cart.GetAll(u =>
+									u.ApplicationUserId == cartFromDb.ApplicationUserId).Count() - 1);
+
 			_unitOfWork.Cart.Remove(cartFromDb);
 			_unitOfWork.Cart.Save();
 			return RedirectToAction("Index");

@@ -168,6 +168,10 @@ namespace TechStore.Areas.Identity.Pages.Account
                 user.State = Input.State;
                 user.City = Input.City;
 
+                if (Input.Role == SD.Role_company)
+                {
+                    user.CompanyId = Input.CompanyId;
+                }
 
                 
                 var result = await _userManager.CreateAsync(user, Input.Password);

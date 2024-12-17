@@ -11,7 +11,7 @@ namespace TechStore.Models
 {
 	public class OrderHeader
 	{   
-		public int OrderHeaderId { get; set; }
+		public int Id { get; set; }
 		public string ApplicationUserId { get; set; }
 		[ForeignKey("ApplicationUserId")]
 		[ValidateNever]
@@ -27,7 +27,7 @@ namespace TechStore.Models
 
 		public string? PaymentStatus { get; set; }
 		public string? TrackNumber { get; set; }
-		public string? Courrier {  get; set; }
+		public string? Courier {  get; set; }
 
 		public DateTime PaymentDate { get; set; }
 		public DateOnly PaymentDueDate { get; set; }

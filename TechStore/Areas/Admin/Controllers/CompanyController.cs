@@ -16,22 +16,22 @@ namespace TechStore.Areas.Admin.Controllers
 	[Authorize(Roles = SD.Role_admin)]
 	public class CompanyController : Controller
 	{
-		private readonly IUnitOfWork _unitofwork;
+		private readonly IUnitOfWork _unitOfWork;
 		// private readonly IWebHostEnvironment _webHostEnvironment;
 		public CompanyController(IUnitOfWork unitofwork, IWebHostEnvironment webHostEnvironment)
 		{
-			_unitofwork = unitofwork;
+			_unitOfWork = unitofwork;
 			// _webHostEnvironment = webHostEnvironment;
 		}
 		public IActionResult Index()
 		{
-			List<Company> objCompanyList = _unitofwork.Company.GetAll().ToList();
+			List<Company> objCompanyList = _unitOfWork.Company.GetAll().ToList();
 			return View(objCompanyList);
 		}
 		/*public IActionResult Add(string? selectedBrand = null)
 		{
 			// Fetch all distinct brands from the database
-			var brands = _unitofwork.Category.GetAll()
+			var brands = _unitOfWork.Category.GetAll()
 				.Select(c => c.Name)
 				.Distinct()
 				.ToList();
@@ -42,7 +42,7 @@ namespace TechStore.Areas.Admin.Controllers
 			// If a brand is selected, fetch its corresponding series
 			if (!string.IsNullOrEmpty(selectedBrand))
 			{
-				seriesList = _unitofwork.Company.GetAll()
+				seriesList = _unitOfWork.Company.GetAll()
 					.Where(p => p.Brand == selectedBrand) // Filter by the selected brand
 					.Select(p => p.Series)
 					.Distinct()
@@ -82,13 +82,13 @@ namespace TechStore.Areas.Admin.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				_unitofwork.Company.Add(companyVM.Company);
-				_unitofwork.Save();
+				_unitOfWork.Company.Add(companyVM.Company);
+				_unitOfWork.Save();
 				TempData["success"] = "Stock Order Added Successfully";
 				return RedirectToAction("Index");
 			} else
 			{
-				companyVM.CategoryList = _unitofwork.Category.GetAll().Select(u => new SelectListItem
+				companyVM.CategoryList = _unitOfWork.Category.GetAll().Select(u => new SelectListItem
 				{
 					Text = u.Name,
 					Value = u.Id.ToString()
@@ -102,14 +102,14 @@ namespace TechStore.Areas.Admin.Controllers
 		{
 			CompanyVM companyVM = new()
 			{
-				CategoryList = _unitofwork.Category.GetAll().Select(u => new SelectListItem
+				CategoryList = _unitOfWork.Category.GetAll().Select(u => new SelectListItem
 				{
 					Text = u.Name,
 					Value = u.Id.ToString()
 				}),
 				Company = new Company()
 			};
-			companyVM.Company = _unitofwork.Company.Get(u => u.CompanyId == id);
+			companyVM.Company = _unitOfWork.Company.Get(u => u.CompanyId == id);
 			return View(companyVM);
 			// not required to pass an object
 		}
@@ -118,8 +118,8 @@ namespace TechStore.Areas.Admin.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				_unitofwork.Company.Update(companyVM.Company);
-				_unitofwork.Save();
+				_unitOfWork.Company.Update(companyVM.Company);
+				_unitOfWork.Save();
 				TempData["success"] = "Stock Order Updated Successfully";
 				return RedirectToAction("Index");
 			} 
@@ -137,7 +137,7 @@ namespace TechStore.Areas.Admin.Controllers
 			}
 			else
 			{
-				Company company = _unitofwork.Company.Get(u => u.CompanyId == id);
+				Company company = _unitOfWork.Company.Get(u => u.CompanyId == id);
 				return View(company);
 			}
 			// not required to pass an object
@@ -152,16 +152,16 @@ namespace TechStore.Areas.Admin.Controllers
 				{
 					// New company
 					// company.CompanyId = Guid.NewGuid().ToString();
-					_unitofwork.Company.Add(company);
+					_unitOfWork.Company.Add(company);
 				}
 				else
 				{
 					// Existing company: Update it
-					_unitofwork.Company.Update(company);
+					_unitOfWork.Company.Update(company);
 				}
 
 				// Save changes to the database
-				_unitofwork.Save();
+				_unitOfWork.Save();
 				TempData["success"] = "Company saved successfully.";
 				return RedirectToAction("Index");
 			}
@@ -175,24 +175,24 @@ namespace TechStore.Areas.Admin.Controllers
 		[HttpGet]
 		public IActionResult GetAll()
 		{
-			List<Company> CompanyList = _unitofwork.Company.GetAll().ToList();
+			List<Company> CompanyList = _unitOfWork.Company.GetAll().ToList();
 			return Json(new { data = CompanyList });
 		}
 
 		public IActionResult Delete(int id)
 		{
-			Company? company = _unitofwork.Company.Get(c => c.CompanyId == id);
+			Company? company = _unitOfWork.Company.Get(c => c.CompanyId == id);
 			return View(company);
 			// not required to pass an object
 		}
 		[HttpPost, ActionName("Delete")]
 		public IActionResult DeletePost(int id)
 		{
-			Company? company = _unitofwork.Company.Get(c => c.CompanyId == id);
+			Company? company = _unitOfWork.Company.Get(c => c.CompanyId == id);
 			// _db.Categories.Remove(company);
-			_unitofwork.Company.Remove(company);
+			_unitOfWork.Company.Remove(company);
 
-			_unitofwork.Save();
+			_unitOfWork.Save();
 			TempData["success"] = "Stock Order Deleted Successfully";
 			return RedirectToAction("Index");
 			// return View(company);

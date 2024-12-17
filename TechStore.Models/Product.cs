@@ -25,11 +25,11 @@ namespace TechStore.Models
 		public string Model { get; set; }
 		[Required]
 		[DisplayName("Regular Price")]
-		[Range(499.99, 8999.99)]
+		// [Range(499.99, 8999.99)]
 		public double RegularPrice { get; set; }
 		[Required]
 		[DisplayName("Dicounted Price")]
-		[Range(499.99, 8999.99)]
+		// [Range(499.99, 8999.99)]
 		public double DiscountPrice { get; set; }
 		[Required]
 		[DisplayName("Stock Orders")]

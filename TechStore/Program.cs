@@ -36,6 +36,8 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
+// var stripeClient = new Stripe.StripeClient("Stripe:: SecretKey");
+
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
@@ -55,7 +57,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 app.UseAuthentication();
-StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe: SecretKey").Get<string>();
+StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe:SecretKey").Get<string>();
+// var stripeClient = new Stripe.StripeClient("Stripe:: SecretKey");
 app.UseAuthorization();
 app.UseSession();
 app.MapRazorPages();

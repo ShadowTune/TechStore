@@ -26,12 +26,12 @@ namespace TechStore.DataAccess.Repository
 		public void Update(OrderHeader orderHeader)
 		{
 			_db.OrderHeaders.Update(orderHeader);
-			// hrow new NotImplementedException();
+			// throw new NotImplementedException();
 		}
 
 		public void UpdateStatus(int orderHeaderId, string orderStatus, string? paymentStatus = null)
 		{
-			var orderFromDb = _db.OrderHeaders.FirstOrDefault(u => u.OrderHeaderId == orderHeaderId);
+			var orderFromDb = _db.OrderHeaders.FirstOrDefault(u => u.Id == orderHeaderId);
 			// throw new NotImplementedException();
 			if (orderFromDb != null)
 			{
@@ -46,7 +46,7 @@ namespace TechStore.DataAccess.Repository
 		public void UpdateStripePaymentId(int orderHeaderId, string sessionId, string paymentIntentId)
 		{
 			// throw new NotImplementedException();
-			var orderFromDb = _db.OrderHeaders.FirstOrDefault(u => u.OrderHeaderId == orderHeaderId);
+			var orderFromDb = _db.OrderHeaders.FirstOrDefault(u => u.Id == orderHeaderId);
 			// throw new NotImplementedException();
 			if (!string.IsNullOrEmpty(sessionId))
 			{

@@ -24,15 +24,23 @@ namespace TechStore.Areas.Customer.Controllers
 
 		public IActionResult Index()
 		{
+			var claimsIdentity = (ClaimsIdentity)User.Identity;
+			var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+			if (claim != null)
+			{
+				HttpContext.Session.SetInt32(SD.SessionCart, _unitOfWork.
+					Cart.GetAll(u => u.ApplicationUserId == claim.Value).Count());
+			}
 			IEnumerable<Product> productList = _unitOfWork.Product.GetAll(includeProperties: "Category");
 			return View(productList);
 		}
-
+		 
 		public IActionResult Details(string productId)
 		{
 			Cart cart = new()
 			{
-				Product = _unitOfWork.Product.Get(u => u.ProductId == productId, includeProperties: "Category"),
+				Product = _unitOfWork.Product.Get(u => 
+				u.ProductId == productId, includeProperties: "Category"),
 				Count = 0,
 				ProductId = productId
 			};
@@ -51,11 +59,11 @@ namespace TechStore.Areas.Customer.Controllers
 				ProductId = productId
 			};*/
 			var claimsIdentity = (ClaimsIdentity)User.Identity;
-			var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
-			cart.ApplicationUserId = userId;
+			var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+			// cart.ApplicationUserId = claim.Value;
 
-			Cart cartFromDb = _unitOfWork.Cart.Get(u => u.ApplicationUserId == userId
-			&& u.ProductId == cart.ProductId);
+			Cart cartFromDb = _unitOfWork.Cart.Get(u => 
+			u.ApplicationUserId == claim.Value && u.ProductId == cart.ProductId);
 
 			if (cartFromDb != null)
 			{
@@ -66,8 +74,8 @@ namespace TechStore.Areas.Customer.Controllers
 			{
 				_unitOfWork.Cart.Add(cart);
 				_unitOfWork.Save();
-				HttpContext.Session.SetInt32(SD.SessionCart,
-					_unitOfWork.Cart.GetAll(u => u.ApplicationUserId == userId).Count());
+				HttpContext.Session.SetInt32(SD.SessionCart, _unitOfWork.
+					Cart.GetAll(u => u.ApplicationUserId == claim.Value).Count());
 			}
 
 			// _unitOfWork.Cart.Add(cart);
