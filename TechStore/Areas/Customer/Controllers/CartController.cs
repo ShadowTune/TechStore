@@ -197,6 +197,7 @@ namespace TechStore.Areas.Customer.Controllers
 
 					_unitOfWork.Save();
 				}
+				HttpContext.Session.Clear();
 			}
 
 			List<Cart> carts = _unitOfWork.Cart.GetAll(
@@ -222,7 +223,7 @@ namespace TechStore.Areas.Customer.Controllers
 			cartFromDb.Count += 1;
 			_unitOfWork.Cart.Update(cartFromDb);
 			_unitOfWork.Cart.Save();
-			TempData["success"] = "Product Added To Cart";
+			TempData["success"] = "Product Incremented To Cart";
 			return RedirectToAction("Index");
 		}
 
@@ -234,15 +235,17 @@ namespace TechStore.Areas.Customer.Controllers
 				HttpContext.Session.SetInt32(SD.SessionCart, _unitOfWork.Cart.GetAll(u => 
 									u.ApplicationUserId == cartFromDb.ApplicationUserId).Count() - 1);
 
+				TempData["success"] = "Product Removed From Cart";
 				_unitOfWork.Cart.Remove(cartFromDb);
+				// _unitOfWork.Cart.Update(cartFromDb);
 			}
 			else
 			{
 				cartFromDb.Count -= 1;
-				_unitOfWork.Cart.Update(cartFromDb);
+				TempData["success"] = "Product Deducted From Cart";
+				// _unitOfWork.Cart.Update(cartFromDb);
 			}
 			_unitOfWork.Cart.Save();
-			TempData["success"] = "Product Deducted From Cart";
 			return RedirectToAction("Index");
 		}
 

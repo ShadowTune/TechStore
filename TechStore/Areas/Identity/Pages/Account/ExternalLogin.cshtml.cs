@@ -17,6 +17,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using TechStore.Models;
+using TechStore.Utility;
 
 namespace TechStore.Areas.Identity.Pages.Account
 {
@@ -84,7 +86,12 @@ namespace TechStore.Areas.Identity.Pages.Account
             [Required]
             [EmailAddress]
             public string Email { get; set; }
-        }
+            [Required]
+			public string? Name { get; set; }
+			public string? City { get; set; }
+			public string? State { get; set; }
+			public string? ContactPhone { get; set; }
+		}
         
         public IActionResult OnGet() => RedirectToPage("./Login");
 
@@ -131,8 +138,10 @@ namespace TechStore.Areas.Identity.Pages.Account
                 {
                     Input = new InputModel
                     {
-                        Email = info.Principal.FindFirstValue(ClaimTypes.Email)
-                    };
+                        Email = info.Principal.FindFirstValue(ClaimTypes.Email),
+
+						Name = info.Principal.FindFirstValue(ClaimTypes.Name)
+					};
                 }
                 return Page();
             }
@@ -155,10 +164,17 @@ namespace TechStore.Areas.Identity.Pages.Account
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+				user.Name = Input.Name;
+				// user.UserName = Input.Email;
+				user.PhoneNumber = Input.ContactPhone;
+                user.State = Input.State;
+                user.City = Input.City;
 
-                var result = await _userManager.CreateAsync(user);
+
+				var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
+                    await _userManager.AddToRoleAsync(user, SD.Role_customer);
                     result = await _userManager.AddLoginAsync(user, info);
                     if (result.Succeeded)
                     {
@@ -197,11 +213,11 @@ namespace TechStore.Areas.Identity.Pages.Account
             return Page();
         }
 
-        private IdentityUser CreateUser()
+        private ApplicationUser CreateUser()
         {
             try
             {
-                return Activator.CreateInstance<IdentityUser>();
+                return Activator.CreateInstance<ApplicationUser>();
             }
             catch
             {

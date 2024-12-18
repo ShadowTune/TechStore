@@ -8,6 +8,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechStore.DataAccess", "TechStore.DataAccess\TechStore.DataAccess.csproj", "{4DD6D106-685C-4076-8828-CB21EAB36BEC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechStore.Models", "TechStore.Models\TechStore.Models.csproj", "{C415750E-6BD7-4669-BB4F-0F92BA6ECD0C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A88F4C10-A5FD-4662-8C7D-48D20CD45465} = {A88F4C10-A5FD-4662-8C7D-48D20CD45465}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechStore.Utility", "TechStore.Utility\TechStore.Utility.csproj", "{A88F4C10-A5FD-4662-8C7D-48D20CD45465}"
 EndProject

@@ -24,13 +24,13 @@ namespace TechStore.Areas.Customer.Controllers
 
 		public IActionResult Index()
 		{
-			var claimsIdentity = (ClaimsIdentity)User.Identity;
+			/*var claimsIdentity = (ClaimsIdentity)User.Identity;
 			var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
 			if (claim != null)
 			{
 				HttpContext.Session.SetInt32(SD.SessionCart, _unitOfWork.
 					Cart.GetAll(u => u.ApplicationUserId == claim.Value).Count());
-			}
+			}*/
 			IEnumerable<Product> productList = _unitOfWork.Product.GetAll(includeProperties: "Category");
 			return View(productList);
 		}
@@ -73,13 +73,15 @@ namespace TechStore.Areas.Customer.Controllers
 			} else
 			{
 				_unitOfWork.Cart.Add(cart);
+				// _unitOfWork.Cart.Update(cartFromDb);
 				_unitOfWork.Save();
-				HttpContext.Session.SetInt32(SD.SessionCart, _unitOfWork.
-					Cart.Get(u => u.ApplicationUserId == claim.Value).Count);
+				HttpContext.Session.SetInt32(SD.SessionCart, _unitOfWork.Cart.
+					GetAll(u => u.ApplicationUserId == claim.Value).ToList().Count);
+
+				TempData["success"] = "Product Added To Cart";
 			}
 			// _unitOfWork.Cart.Add(cart);
 			// Product product = _unitOfWork.Product.Get(u => u.ProductId == productId, includeProperties: "Category");
-			TempData["success"] = "Product Added To Cart";
 			return RedirectToAction("Index");
 		}
 

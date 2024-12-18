@@ -36,6 +36,11 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
+builder.Services.AddAuthentication().AddFacebook(option => {
+    option.AppId = "575570625405761";
+    option.AppSecret = "3212e62b0395c59321c97ac04ff82bf8";
+ });
+
 // var stripeClient = new Stripe.StripeClient("Stripe:: SecretKey");
 
 builder.Services.AddRazorPages();
