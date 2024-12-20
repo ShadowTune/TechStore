@@ -42,7 +42,7 @@ namespace TechStore.Areas.Identity.Pages.Account
             IUserStore<IdentityUser> userStore,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
-			RoleManager<IdentityRole> roleManager,
+			RoleManager<IdentityRole> roleManager, 
             IUnitOfWork unitOfWork,
 			IEmailSender emailSender)
         {
@@ -125,13 +125,13 @@ namespace TechStore.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
-			if (_roleManager.RoleExistsAsync(SD.Role_customer).GetAwaiter().GetResult())
+			/*if (!_roleManager.RoleExistsAsync(SD.Role_customer).GetAwaiter().GetResult())
 			{
 				_roleManager.CreateAsync(new IdentityRole(SD.Role_customer)).GetAwaiter().GetResult();
 				_roleManager.CreateAsync(new IdentityRole(SD.Role_admin)).GetAwaiter().GetResult();
 				_roleManager.CreateAsync(new IdentityRole(SD.Role_company)).GetAwaiter().GetResult();
 				_roleManager.CreateAsync(new IdentityRole(SD.Role_employee)).GetAwaiter().GetResult();
-			}
+			}*/
 
             Input = new()
             {

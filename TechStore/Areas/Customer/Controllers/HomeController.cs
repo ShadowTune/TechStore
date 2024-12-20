@@ -85,9 +85,22 @@ namespace TechStore.Areas.Customer.Controllers
 			return RedirectToAction("Index");
 		}
 
-		public IActionResult Privacy()
+		public IActionResult Privacies(int id = 1)
 		{
-			return View();
+			Privacy privacy = _unitOfWork.Privacy.Get(u => u.PrivacyId == id);
+			return View(privacy);
+		}
+
+		public IActionResult Terms(int id = 1)
+		{
+			Term term = _unitOfWork.Term.Get(u => u.TermId == id);
+			return View(term);
+		}
+
+		public IActionResult Cookies(int id = 1)
+		{
+			Cookie cookie = _unitOfWork.Cookie.Get(u => u.CookieId == id);
+			return View(cookie);
 		}
 
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

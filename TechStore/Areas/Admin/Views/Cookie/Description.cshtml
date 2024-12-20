@@ -1,0 +1,30 @@
+﻿@model Cookie
+<partial name="_Notification" />
+<div class="card shadow border-0 my-4">
+    <div class="card-header bg-secondary bg-gradient ml-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2">Cookies Policy</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body p-4">
+        <div class="row pb-3">
+            <div class="col-6">
+            </div>
+            <div class="col-6 text-end">
+                <a asp-controller="Cookie" asp-action="UpdateAdd" class="btn btn-primary">
+                    <i class="bi bi-plus-circle"></i> Update Cookies
+                </a>
+            </div>
+        </div>
+        <div class="row pl-2 my-3">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    @Html.Raw(Model.Description)
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

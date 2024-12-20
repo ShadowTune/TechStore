@@ -18,6 +18,9 @@ namespace TechStore.DataAccess.Data
 		public DbSet<Company> Companies { get; set; }
 		public DbSet<OrderHeader> OrderHeaders { get; set; }
 		public DbSet<OrderDetail> OrderDetails { get; set; }
+		public DbSet<Term> Terms { get; set; }
+		public DbSet<Cookie> Cookies { get; set; }
+		public DbSet<Privacy> Privacies { get; set; }
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
@@ -44,6 +47,18 @@ namespace TechStore.DataAccess.Data
 				new Product { ProductId = "a55a96e0-660e-4407-ae45-bcb3b6f8a53e", BrandId = 6, Series = "VICTUS", Model = "15", RegularPrice = 1199.99, DiscountPrice = 1159.99, DisplayOrder = 20, ImageLink = "", Specification = "abcd" },
 				new Product { ProductId = "b694c472-76e9-4e71-9ac0-ccd28944335c", BrandId = 3, Series = "NITRO", Model = "AN515", RegularPrice = 1159.99, DiscountPrice = 1150.99, DisplayOrder = 20, ImageLink = "", Specification = "abcd" },
 				new Product { ProductId = "e612e509-77f0-4cd6-a784-0c75172db894", BrandId = 4, Series = "ALIENWARE", Model = "R15", RegularPrice = 4159.99, DiscountPrice = 4100.99, DisplayOrder = 5, ImageLink = "", Specification = "abcd" }
+			);
+
+			modelBuilder.Entity<Term>().HasData(
+				new Term { TermId = 1, Description = "abcd" }
+			);
+
+			modelBuilder.Entity<Cookie>().HasData(
+				new Cookie { CookieId = 1, Description = "abcd" }
+			);
+
+			modelBuilder.Entity<Privacy>().HasData(
+				new Privacy { PrivacyId = 1, Description = "abcd" }
 			);
 		}
 	}

@@ -4,11 +4,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - TechStore</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="~/TechStore.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
@@ -30,7 +31,7 @@
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Terms</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-area="Admin" asp-controller="Order" asp-action="Index">Order Management</a>
@@ -39,7 +40,7 @@
                         {
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Products Management
+                                    Content Management
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li class="nav-item">
@@ -50,6 +51,15 @@
                                     </li>
                                     <li class="nav-item">
                                         <a class="dropdown-item" asp-area="Admin" asp-controller="Company" asp-action="Index">Company</a>
+                                    </li>
+                                    <li class="nav-item"> 
+                                         <a class="dropdown-item" asp-area="Admin" asp-controller="Term" asp-action="Description">Terms</a> 
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="dropdown-item" asp-area="Admin" asp-controller="Cookie" asp-action="Description">Cookies</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="dropdown-item" asp-area="Admin" asp-controller="Privacy" asp-action="Description">Privacy</a>
                                     </li>
                                     @* <li><hr class="dropdown-divider"></li> *@
                                     <li class="nav-item">
@@ -78,12 +88,82 @@
         </main>
     </div>
 
-    <footer class="border-top footer bg-primary text-white">
+    @* <footer class="border-top footer bg-primary text-white"> *@
+    @*     <div class="text-center"> *@
+    @*         @* <a>DEVELOPED BY <i class="bi bi-heart-fill"></i></a><br /> *@ 
+    @*         &copy; 2024 - TechStore - <a class="text-white" asp-area="" asp-controller="Home" asp-action="Description">Terms</a> *@
+    @*     </div> *@
+    @* </footer> *@
+
+    <footer>
+        <div class="footer-container">
+            <table class="footer-table">
+                <tr>
+                    <!-- Logo Section -->
+                    <td class="footer-cell">
+                        <img src="https://www.globalbrand.com.bd/image/cache/catalog/Images%20WEB/global-brand-logo%20(1)-160x52.png"
+                             alt="Global Brand Official Logo"
+                             class="footer-logo">
+                    </td>
+                    <!-- Call Us Section -->
+                    <td class="footer-cell center-content">
+                        <h3>Call Us: 9 AM - 7 PM</h3>
+                        <ul class="footer-list inline-list">
+                            <li><a href="tel:+88-09666774422">+88-09666774422</a></li>
+                            <li><a href="tel:+88-01828348463">+88-01828348463</a></li>
+                        </ul>
+                    </td>
+
+                    <!-- Social Media Links -->
+                </tr>
+                <tr>
+                    <!-- Address Section -->
+                    <td colspan="3" class="footer-cell">
+                        <p>
+                            <b>Email:</b> info@globalbrand.com.bd <br>
+                            <b>Head Office:</b> 19/2, West Panthapath Dhanmondi, Dhaka-1205, Bangladesh. <br>
+                            <b>Service Center:</b> 65, Lake Circus, Kalabagan, Dhaka-1205. <br>
+                            <b>Warehouse:</b> Plot #03 B-01, Building #01, 3rd Floor, Block-B, Ameenbazar, Savar, Dhaka-1348.
+                        </p>
+                    </td>
+                    <!-- Quick Links -->
+                    <td class="footer-cell">
+                        <h4>Quick Links</h4>
+                        <ul class="footer-list">
+                            <li><a href="https://www.globalbrand.com.bd/blog">Blog</a></li>
+                            <li><a href="https://www.globalbrand.com.bd/contact-us">Contact Us</a></li>
+                            <li><a href="https://www.globalbrand.com.bd/service-center">Service Center</a></li>
+                            <li><a href="https://www.globalbrand.com.bd/products-hotline">Products Hotline</a></li>
+                            <li><a href="https://www.globalbrand.com.bd/technical-help-line">Technical Helplines</a></li>
+                        </ul>
+                    </td>
+                    <!-- About Us -->
+                    <td class="footer-cell">
+                        <h4>About Us</h4>
+                        <ul class="footer-list">
+                            <li><a href="https://www.globalbrand.com.bd/overview">Overview</a></li>
+                            <li><a href="https://www.globalbrand.com.bd/branches">Our Branches</a></li>
+                            <li><a href="https://www.globalbrand.com.bd/company-policy">Company Policy</a></li>
+                        </ul>
+                    </td>
+                    <!-- Policy Links -->
+                    <td class="footer-cell">
+                        <h4>Company Policy</h4>
+                        <ul class="footer-list">
+                            <li><a class="text-blue" asp-area="" asp-controller="Home" asp-action="Cookies">Cookie Policy</a></li>
+                            <li><a class="text-blue" asp-area="" asp-controller="Home" asp-action="Privacies">Privacy Policy</a></li>
+                            <li><a class="text-blue" asp-area="" asp-controller="Home" asp-action="Terms">Terms & Conditions</a></li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+        </div>
         <div class="text-center">
-            @* <a>DEVELOPED BY <i class="bi bi-heart-fill"></i></a><br /> *@
-            &copy; 2024 - TechStore - <a class="text-white" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <p>Tech Store PLC. ©2024 - All Rights Reserved.</p>
         </div>
     </footer>
+
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
@@ -94,3 +174,5 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+

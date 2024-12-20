@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TechStore.DataAccess.Data;
 
@@ -11,9 +12,11 @@ using TechStore.DataAccess.Data;
 namespace TechStore.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241218203728_UpdatedTerms")]
+    partial class UpdatedTerms
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -384,30 +387,6 @@ namespace TechStore.DataAccess.Migrations
                         });
                 });
 
-            modelBuilder.Entity("TechStore.Models.Cookie", b =>
-                {
-                    b.Property<int>("CookieId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CookieId"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("CookieId");
-
-                    b.ToTable("Cookies");
-
-                    b.HasData(
-                        new
-                        {
-                            CookieId = 1,
-                            Description = "abcd"
-                        });
-                });
-
             modelBuilder.Entity("TechStore.Models.OrderDetail", b =>
                 {
                     b.Property<int>("Id")
@@ -504,30 +483,6 @@ namespace TechStore.DataAccess.Migrations
                     b.HasIndex("ApplicationUserId");
 
                     b.ToTable("OrderHeaders");
-                });
-
-            modelBuilder.Entity("TechStore.Models.Privacy", b =>
-                {
-                    b.Property<int>("PrivacyId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PrivacyId"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("PrivacyId");
-
-                    b.ToTable("Privacies");
-
-                    b.HasData(
-                        new
-                        {
-                            PrivacyId = 1,
-                            Description = "abcd"
-                        });
                 });
 
             modelBuilder.Entity("TechStore.Models.Product", b =>
@@ -658,13 +613,6 @@ namespace TechStore.DataAccess.Migrations
                     b.HasKey("TermId");
 
                     b.ToTable("Terms");
-
-                    b.HasData(
-                        new
-                        {
-                            TermId = 1,
-                            Description = "abcd"
-                        });
                 });
 
             modelBuilder.Entity("TechStore.Models.ApplicationUser", b =>

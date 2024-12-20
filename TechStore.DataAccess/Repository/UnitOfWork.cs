@@ -19,6 +19,9 @@ namespace TechStore.DataAccess.Repository
 		public IApplicationUserRepository ApplicationUser { get; private set; }
 		public IOrderHeaderRepository OrderHeader { get; private set; }
 		public IOrderDetailRepository OrderDetail { get; private set; }
+		public ITermRepository Term { get; private set; }
+		public ICookieRepository Cookie { get; private set; }
+		public IPrivacyRepository Privacy { get; private set; }
 		public UnitOfWork(ApplicationDbContext db)
 		{
 			_db = db;
@@ -29,6 +32,9 @@ namespace TechStore.DataAccess.Repository
 			ApplicationUser = new ApplicationUserRepository(_db);
 			OrderHeader = new OrderHeaderRepository(_db);
 			OrderDetail = new OrderDetailRepository(_db);
+			Term = new TermRepository(_db);
+			Cookie = new CookieRepository(_db);
+			Privacy = new PrivacyRepository(_db);
 		}
 
 		public void Save() 

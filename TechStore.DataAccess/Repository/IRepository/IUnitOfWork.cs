@@ -15,6 +15,9 @@ namespace TechStore.DataAccess.Repository.IRepository
 		IApplicationUserRepository ApplicationUser { get; }
 		IOrderDetailRepository OrderDetail { get; }
 		IOrderHeaderRepository OrderHeader { get; }
+		ITermRepository Term { get; }
+		ICookieRepository Cookie { get; }
+		IPrivacyRepository Privacy { get; }
 		void Save();
 	}
 }
