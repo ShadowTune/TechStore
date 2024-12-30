@@ -133,13 +133,18 @@ namespace TechStore.Areas.Admin.Controllers
 		{
 			ProductVM productVM = new()
 			{
-				CategoryList = _unitOfWork.Category.GetAll().Distinct().Select(u => new SelectListItem
+				CategoryList = _unitOfWork.Category.GetAll()
+				.GroupBy(c => c.Name) // Group by the brand name to ensure uniqueness.
+				.Select(g => g.First()) // Select the first entry in each group (to get the unique brand with its Id).
+				.Select(c => new SelectListItem
 				{
-					Text = u.Name,
-					Value = u.Id.ToString()
-				}),
+					Text = c.Name,               // Display brand name (e.g., "ASUS").
+					Value = c.Id.ToString()      // Use the numeric Id as the value.
+				})
+				.ToList(), // Ensure the list is materialized before passing it to the ViewModel.
 				Product = new Product()
 			};
+
 
 			if (id == null)
 			{

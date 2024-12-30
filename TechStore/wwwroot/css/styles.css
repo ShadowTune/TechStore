@@ -1,6 +1,28 @@
-﻿.footer-container {
-    background-color: #f8f9fa;
+﻿/* Ensure the footer stays at the bottom */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Main content area will take up the available space */
+.main-content {
+    flex: 1; /* Ensures it grows to fill the available space */
+}
+
+/* Footer styles */
+.footer-container {
+    background-color: #003151;
     padding: 20px;
+    color: white; /* Ensures text is visible on a dark background */
+    text-align: center; /* Centers text within the footer */
+}
+
+footer {
+    background-color: #003151;
+    width: 100%; /* Ensures it spans the full width of the page */
 }
 
 .footer-table {
@@ -17,7 +39,7 @@
     .footer-cell h3, .footer-cell h4 {
         margin-bottom: 10px;
         font-size: 16px;
-        color: #343a40;
+        color: #ffffff;
     }
 
     .footer-cell p, .footer-cell ul {
@@ -60,86 +82,3 @@
 .footer-logo {
     max-width: 150px;
 }
-
-footer-class {
-    fdiv .grid-col grid-col-1
-
-{
-    /* Font & Text */
-    font-family: Poppins;
-    font-size: 14px;
-    font-style: normal;
-    font-variant: normal;
-    font-weight: 400;
-    letter-spacing: normal;
-    line-height: 23.8px;
-    text-decoration: none solid rgb(51, 51, 51);
-    text-align: start;
-    text-indent: 0px;
-    text-transform: none;
-    vertical-align: baseline;
-    white-space: normal;
-    word-spacing: 0px;
-    /* Color & Background */
-    background-attachment: scroll;
-    background-color: rgb(244, 126, 45);
-    background-image: none;
-    background-position: 0% 0%;
-    background-repeat: repeat;
-    color: rgb(51, 51, 51);
-    /* Box */
-    height: 5px;
-    width: 477.5px;
-    border: 0px none rgb(51, 51, 51);
-    border-top: 0px none rgb(51, 51, 51);
-    border-right: 0px none rgb(51, 51, 51);
-    border-bottom: 0px none rgb(51, 51, 51);
-    border-left: 0px none rgb(51, 51, 51);
-    margin: 0px;
-    padding: 5px 0px 0px;
-    max-height: none;
-    min-height: auto;
-    max-width: none;
-    min-width: auto;
-    /* Positioning */
-    position: relative;
-    top: 0px;
-    bottom: 0px;
-    right: 0px;
-    left: 0px;
-    float: none;
-    display: block;
-    clear: none;
-    z-index: auto;
-    /* List */
-    list-style-image: none;
-    list-style-type: disc;
-    list-style-position: outside;
-    /* Table */
-    border-collapse: separate;
-    border-spacing: 0px 0px;
-    caption-side: top;
-    empty-cells: show;
-    table-layout: auto;
-    /* Miscellaneous */
-    overflow: visible;
-    cursor: auto;
-    visibility: visible;
-    /* Effects */
-    transform: none;
-    transition: all;
-    outline: rgb(255, 0, 0) dashed 1px;
-    outline-offset: 0px;
-    box-sizing: border-box;
-    resize: none;
-    text-shadow: none;
-    text-overflow: clip;
-    word-wrap: normal;
-    box-shadow: none;
-    border-top-left-radius: 0px;
-    border-top-right-radius: 0px;
-    border-bottom-left-radius: 0px;
-    border-bottom-right-radius: 0px;
-}
-}
-

@@ -1,16 +1,16 @@
-﻿@model Privacy
+﻿@model Overview
 <partial name="_Notification" />
 <div class="card-shadow border-0 mt-4">
 	<div class="card-header bg-secondary bg-gradient ml-0 py-3">
 		<div class="row">
 			<div class="col-12 text-center">
-				<h2 class="text-white py-2">Update Terms</h2>
+				<h2 class="text-white py-2">Update Visions</h2>
 			</div>
 		</div>
 	</div>
 	<div class="card-body p-4">
 		<form method="post" class="row" enctype="multipart/form-data">
-			<input asp-for="PrivacyId" hidden />
+			<input asp-for="OverviewId" hidden />
 			<div class="row">
 				<div class="col-8">
 					<div class="border p-3">
@@ -18,9 +18,13 @@
 							<label asp-for="Description" class="ms-2 text-muted"></label>
 							<textarea asp-for="Description" class="form-control border-0 shadow"></textarea>
 						</div>
+						<div class="form-floating py-2 col-12">
+							<input type="file" name="file" class="form-control border-0 shadow" />
+							<label asp-for="@Model.ImageLink" class="ms-2"></label>
+						</div>
 						<div class="row">
 							<div class="col-6 col-md-3">
-								@if (Model.PrivacyId != 0)
+								@if (Model.OverviewId != 0)
 								{
 									<button type="submit" class="btn btn-primary form-control">Update</button>
 								}
@@ -30,10 +34,14 @@
 								}
 							</div>
 							<div class="col-6 col-md-3">
-								<a asp-controller="Privacy" asp-action="Description" class="btn btn-primary border form-control">Back</a>
+								<a asp-controller="Overview" asp-action="Description" class="btn btn-primary border form-control">Back</a>
 							</div>
 						</div>
 					</div>
+				</div>
+				<div class="col-4">
+					<img src="@Model.ImageLink" width="100%"
+						 style="border-radius: 5px; border:1px solid #bbb9b9" />
 				</div>
 			</div>
 		</form>

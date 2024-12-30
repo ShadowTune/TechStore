@@ -97,6 +97,12 @@ namespace TechStore.Areas.Customer.Controllers
 			return View(term);
 		}
 
+		public IActionResult Overview(int id = 1)
+		{
+			Overview overview = _unitOfWork.Overview.Get(u => u.OverviewId == id);
+			return View(overview);
+		}
+
 		public IActionResult Cookies(int id = 1)
 		{
 			Cookie cookie = _unitOfWork.Cookie.Get(u => u.CookieId == id);

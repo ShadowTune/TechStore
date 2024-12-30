@@ -18,6 +18,7 @@ namespace TechStore.DataAccess.Repository.IRepository
 		ITermRepository Term { get; }
 		ICookieRepository Cookie { get; }
 		IPrivacyRepository Privacy { get; }
+		IOverviewRepository Overview { get; }	
 		void Save();
 	}
 }

@@ -15,8 +15,8 @@
             @if (User.IsInRole(SD.Role_admin) || User.IsInRole(SD.Role_employee))
             {
             <div class="col-6 text-end">
-                <a asp-controller="Term" asp-action="UpdateAdd" class="btn btn-primary">
-                    <i class="bi bi-plus-circle"></i> Update Policy
+                <a asp-area="Admin" asp-controller="Term" asp-action="UpdateAdd" class="btn btn-primary">
+                    <i class="bi bi-plus-circle"></i> Update Terms
                 </a>
             </div>
             }

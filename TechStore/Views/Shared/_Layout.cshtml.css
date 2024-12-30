@@ -45,8 +45,12 @@ button.accept-policy {
 	line-height: inherit;
 }
 
-.footer-class {
-	fdiv .grid-col grid-col-1{
+.mce-notification {
+	display: none !important;
+}
+
+
+fdiv .grid-col grid-col-1 {
 	/* Font & Text */
 	font-family: Poppins;
 	font-size: 14px;
@@ -123,4 +127,4 @@ button.accept-policy {
 	border-bottom-left-radius: 0px;
 	border-bottom-right-radius: 0px;
 }
-}
+

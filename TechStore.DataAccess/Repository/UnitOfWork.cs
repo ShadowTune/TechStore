@@ -22,6 +22,7 @@ namespace TechStore.DataAccess.Repository
 		public ITermRepository Term { get; private set; }
 		public ICookieRepository Cookie { get; private set; }
 		public IPrivacyRepository Privacy { get; private set; }
+		public IOverviewRepository Overview { get; private set; }	
 		public UnitOfWork(ApplicationDbContext db)
 		{
 			_db = db;
@@ -35,6 +36,7 @@ namespace TechStore.DataAccess.Repository
 			Term = new TermRepository(_db);
 			Cookie = new CookieRepository(_db);
 			Privacy = new PrivacyRepository(_db);
+			Overview = new OverviewRepository(_db);
 		}
 
 		public void Save() 

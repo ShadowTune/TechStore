@@ -21,6 +21,7 @@ namespace TechStore.DataAccess.Data
 		public DbSet<Term> Terms { get; set; }
 		public DbSet<Cookie> Cookies { get; set; }
 		public DbSet<Privacy> Privacies { get; set; }
+		public DbSet<Overview> Overviews { get; set; }
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
@@ -59,6 +60,10 @@ namespace TechStore.DataAccess.Data
 
 			modelBuilder.Entity<Privacy>().HasData(
 				new Privacy { PrivacyId = 1, Description = "abcd" }
+			);
+
+			modelBuilder.Entity<Overview>().HasData(
+				new Overview { OverviewId = 1, Description = "abcd", ImageLink = "" }
 			);
 		}
 	}

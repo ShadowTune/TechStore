@@ -19,7 +19,9 @@
     <header> 
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-primary border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">TechStore</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="/images/logo.jpg" style="width:30px"/>
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                 aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -31,7 +33,7 @@
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacies">Privacy</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-area="Admin" asp-controller="Order" asp-action="Index">Order Management</a>
@@ -52,18 +54,12 @@
                                     <li class="nav-item">
                                         <a class="dropdown-item" asp-area="Admin" asp-controller="Company" asp-action="Index">Company</a>
                                     </li>
-                                    <li class="nav-item"> 
-                                         <a class="dropdown-item" asp-area="Admin" asp-controller="Term" asp-action="Description">Terms</a> 
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="dropdown-item" asp-area="Admin" asp-controller="Cookie" asp-action="Description">Cookies</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="dropdown-item" asp-area="Admin" asp-controller="Privacy" asp-action="Description">Privacy</a>
-                                    </li>
                                     @* <li><hr class="dropdown-divider"></li> *@
                                     <li class="nav-item">
                                         <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Register">Create Account</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Index">Manage User</a>
                                     </li>
                                 </ul>
                             </li>
@@ -101,48 +97,38 @@
                 <tr>
                     <!-- Logo Section -->
                     <td class="footer-cell">
-                        <img src="https://www.globalbrand.com.bd/image/cache/catalog/Images%20WEB/global-brand-logo%20(1)-160x52.png"
-                             alt="Global Brand Official Logo"
+                        <img src="~/images/techstore.jpg"
+                             alt="Tech Store Official Logo"
                              class="footer-logo">
                     </td>
                     <!-- Call Us Section -->
-                    <td class="footer-cell center-content">
+                    <!-- Call Us Section -->
+                    <td class="footer-cell center-content text-white">
                         <h3>Call Us: 9 AM - 7 PM</h3>
-                        <ul class="footer-list inline-list">
-                            <li><a href="tel:+88-09666774422">+88-09666774422</a></li>
-                            <li><a href="tel:+88-01828348463">+88-01828348463</a></li>
+                        <ul class="footer-list inline-list text-white">
+                            <li><a href="tel:+88-09666774422" class="text-white">+88-09666774422</a></li>
+                            <li><a href="tel:+88-01828348463" class="text-white">+88-01828348463</a></li>
                         </ul>
                     </td>
+
 
                     <!-- Social Media Links -->
                 </tr>
                 <tr>
                     <!-- Address Section -->
                     <td colspan="3" class="footer-cell">
-                        <p>
-                            <b>Email:</b> info@globalbrand.com.bd <br>
+                        <p class="text-white">
+                            <b>Email:</b> admin@techstore.ac.bd <br>
                             <b>Head Office:</b> 19/2, West Panthapath Dhanmondi, Dhaka-1205, Bangladesh. <br>
                             <b>Service Center:</b> 65, Lake Circus, Kalabagan, Dhaka-1205. <br>
                             <b>Warehouse:</b> Plot #03 B-01, Building #01, 3rd Floor, Block-B, Ameenbazar, Savar, Dhaka-1348.
                         </p>
                     </td>
-                    <!-- Quick Links -->
-                    <td class="footer-cell">
-                        <h4>Quick Links</h4>
-                        <ul class="footer-list">
-                            <li><a href="https://www.globalbrand.com.bd/blog">Blog</a></li>
-                            <li><a href="https://www.globalbrand.com.bd/contact-us">Contact Us</a></li>
-                            <li><a href="https://www.globalbrand.com.bd/service-center">Service Center</a></li>
-                            <li><a href="https://www.globalbrand.com.bd/products-hotline">Products Hotline</a></li>
-                            <li><a href="https://www.globalbrand.com.bd/technical-help-line">Technical Helplines</a></li>
-                        </ul>
-                    </td>
                     <!-- About Us -->
                     <td class="footer-cell">
                         <h4>About Us</h4>
                         <ul class="footer-list">
-                            <li><a href="https://www.globalbrand.com.bd/overview">Overview</a></li>
-                            <li><a href="https://www.globalbrand.com.bd/branches">Our Branches</a></li>
+                            <li><a class="text-blue" asp-area="" asp-controller="Home" asp-action="Overview">Overview</a></li>
                             <li><a href="https://www.globalbrand.com.bd/company-policy">Company Policy</a></li>
                         </ul>
                     </td>
@@ -158,8 +144,8 @@
                 </tr>
             </table>
         </div>
-        <div class="text-center">
-            <p>Tech Store PLC. ©2024 - All Rights Reserved.</p>
+        <div class="text-center text-white">
+            <div>Tech Store PLC. ©2024 - All Rights Reserved.</div>
         </div>
     </footer>
 
@@ -167,10 +153,13 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.tiny.cloud/1/laztbmphq3vwsn2lz3kpvxbfmwy5dxrigbmxv0eh79v731z4/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="https://cdn.tiny.cloud/1/te72ltzgl43wnhvoa0is220hxlbasiddlzheblf5t5fk2swt/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+    @* <script src='https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=laztbmphq3vwsn2lz3kpvxbfmwy5dxrigbmxv0eh79v731z4'></script> *@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
