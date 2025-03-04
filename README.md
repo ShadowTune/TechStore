@@ -4,9 +4,9 @@ TechStore is a full-featured e-commerce web application built with ASP.NET. It p
 
 ## Features
 
-- **Product Listings with Categories & Filters**: Browse products in various categories, and filter based on price, rating, etc.
+- **Product Listings with Categories & Filters**: Browse products in various categories and filter them based on price, rating, etc.
 - **User Authentication**: Secure login and registration system for users to access their accounts.
-- **Payment Gateway Integration**: Process payments securely using [Stripe/PayPal].
+- **Payment Gateway Integration**: Process payments securely using [Stripe].
 - **Order Placement & Delivery Tracking**: Users can place orders and track delivery status in real-time.
 - **Cart & Wishlist Functionality**: Add products to the cart or wishlist for future purchases.
 - **Admin Dashboard**: Admins can manage products, view orders, and perform administrative tasks from a dedicated dashboard.
@@ -16,7 +16,7 @@ TechStore is a full-featured e-commerce web application built with ASP.NET. It p
 - **Frontend**: HTML, CSS, JavaScript
 - **Backend**: ASP.NET (C#)
 - **Database**: SQL Server
-- **Payment Integration**: [Stripe/PayPal] (Specify which one you're using)
+- **Payment Integration**: [Stripe] 
 - **Development IDE**: Visual Studio
 
 ## Installation Guide
@@ -26,19 +26,16 @@ TechStore is a full-featured e-commerce web application built with ASP.NET. It p
 Clone the repository to your local machine.
 
 ```bash
-git clone https://github.com/yourusername/TechStore.git
+git clone https://github.com/ShadowTune/TechStore.git
 cd TechStore
-
+```
 
 ### 2. Open the Project in Visual Studio
 
 - Launch **Visual Studio** on your system.
 - Open the `.sln` (Solution) file located in the root directory of the project.
-  - The `.sln` file is named `TechStore.sln` or something similar based on your project configuration.
   - You can do this by selecting `File` > `Open` > `Project/Solution` and then navigating to the directory where the project is located. Select the `.sln` file to open the entire project in Visual Studio.
-
-Once the project is open in Visual Studio, you should see the solution and all the project files in the Solution Explorer on the right side of the screen.
-
+- Once the project is open in Visual Studio, you should see the solution and all the project files in the Solution Explorer on the right side of the screen.
 
 ### 3. Restore NuGet Packages
 
@@ -49,7 +46,7 @@ Before you can run the project, you need to restore the necessary NuGet packages
 
 ```bash
 dotnet restore
-
+```
 
 ### 4. Configure the Database
 
@@ -59,13 +56,14 @@ To configure the database, you'll need to set up the connection string in the pr
 - Find the section named `ConnectionStrings` and update the **connection string** to point to your local or remote SQL Server database.
 
 Example connection string:
+
 ```json
 {
   "ConnectionStrings": {
-    "DefaultConnection": "Server=yourserver;Database=TechStoreDB;Trusted_Connection=True;"
+    "DefaultConnection": "Server=yourserver;Database=databasename;Trusted_Connection=True;"
   }
 }
-
+```
 
 ### 5. Run Database Migrations
 
@@ -76,5 +74,27 @@ To set up the database schema, you need to run the migrations to create the nece
 
 ```bash
 dotnet ef database update
+```
 
+### 6. Run the Application
+
+- Start the application using the following command:
+
+```bash
+dotnet run
+```
+
+- Once the application is running, open your browser and visit:
+  
+```
+https://localhost:7007 or http://localhost:5029
+```
+
+
+## Author
+
+**MD. RIFAT IBN AZAD**
+
+- **LinkedIn**: [LinkedIn Profile](https://www.linkedin.com/in/rifat-azad-80b180173/)
+- **GitHub**: [GitHub Profile](https://github.com/ShadowTune)
 
