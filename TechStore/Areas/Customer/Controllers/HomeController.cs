@@ -10,7 +10,7 @@ using TechStore.Utility;
 namespace TechStore.Areas.Customer.Controllers
 {
 	[Area("Customer")]
-	[Authorize]
+	// [Authorize]
 	public class HomeController : Controller
 	{
 		private readonly ILogger<HomeController> _logger;
